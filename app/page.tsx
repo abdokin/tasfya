@@ -1,4 +1,3 @@
-"use server"
 import Hero from "@/components/hero"
 import ContentCategories from "@/components/content-categories"
 import RecentFatwas from "@/components/recent-fatwas"

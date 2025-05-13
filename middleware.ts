@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
  
 // Routes that require authentication
-const protectedRoutes = ['/dashboard', '/profile', '/bookmark']
+const protectedRoutes = ['/profile', '/bookmark']
 
 // Routes that are always accessible without authentication
 const publicRoutes = ['/login', '/signup', '/']

@@ -33,7 +33,8 @@ export type User = {
   name: string
   email: string
   avatar_url: string
-  password: string
+  created_at: string
+  updated_at: string
 }
 
 

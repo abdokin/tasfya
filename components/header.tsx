@@ -110,7 +110,7 @@ function NavLinks({ pathname }: { pathname: string }) {
     ["/books", "الكتب"],
     ["/benefits", "الفوائد"],
     ["/about", "مع الشيخ"],
-    ["/comments", "التعليقات"],
+    // ["/comments", "التعليقات"], TODO: Uncomment when comments page is ready
   ]
 
   return (
@@ -165,12 +165,6 @@ function UserMenu({
             <Link href="/profile" className="w-full text-right">
               <User className="size-4 ml-auto" />
               الملف الشخصي
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild className="flex justify-end">
-            <Link href="/dashboard" className="w-full text-right">
-              <Settings className="size-4 ml-auto" />
-              لوحة التحكم
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="flex justify-end">

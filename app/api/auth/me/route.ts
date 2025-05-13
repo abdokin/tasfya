@@ -3,7 +3,8 @@ import { cookies } from 'next/headers';
 
 export async function GET(_request: NextRequest) {
   try {
-    const userj = (await cookies()).get('user')?.value;    
+    const cookieStore =await cookies();
+    const userj = cookieStore.get('user')?.value;
     const user = JSON.parse(userj || '{}');
     return NextResponse.json({ user: user }, { status: 200 });
   } catch (error) {

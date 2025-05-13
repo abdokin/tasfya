@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Play } from "lucide-react"
+import { Pause, Play } from "lucide-react"
 import { useAudioPlayer } from "@/context/AudioPlayerContext"
 import { AudioTrack } from "@/types"
 
@@ -20,11 +20,9 @@ export default function AudioPlayerButton({
   className = "",
   isGhost = false
 }: AudioPlayerButtonProps) {
-  const { setTrack } = useAudioPlayer()
+  const { setTrack, isPlaying } = useAudioPlayer()
 
   const handlePlayClick = () => {
-    console.log("Playing track:", track);
-    
     setTrack(track)
   }
 
@@ -35,7 +33,7 @@ export default function AudioPlayerButton({
       size={size || "default"}
       className={className}
     >
-      <Play className="h-5 w-5" />
+      {isPlaying ? <Play className="h-5 w-5" /> : <Pause className="h-5 w-5" />}
       {isGhost ? "استمع الآن" : <span className="sr-only">استمع</span>}    
     </Button>
   )

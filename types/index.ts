@@ -6,7 +6,7 @@ export interface AudioTrack {
   audioUrl: string
   duration: number
   thumbnailUrl: string
-  type: "lesson" | "fatwa" | "sermon" | "lecture"
+  type: "lesson" | "fatwa" | "sermon" | "lecture" | "benefit"
 }
 
 export interface PlaylistItem extends AudioTrack {

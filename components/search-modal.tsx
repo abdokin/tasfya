@@ -69,9 +69,6 @@ export default function SearchModal({
         { id: "1", title: "حكمة خلق الله الكافر مع علمه سبحانه أنه من أهل النار", type: "fatwa" as const, category: "العقيدة", date: "2023/02/10" },
         { id: "7", title: "حكم قراءة القرآن للحائض", type: "fatwa" as const, category: "الفقه", date: "2023/06/10" }
       ] : []),
-      ...(activeTab === "all" || activeTab === "sermons" ? [
-        { id: "1", title: "أهمية الصلاة", type: "sermon" as const, category: "العبادات", date: "2025/05/02" }
-      ] : []),
       ...(activeTab === "all" || activeTab === "lectures" ? [
         { id: "1", title: "أثر القرآن في تزكية النفوس", type: "lecture" as const, category: "التزكية", date: "2025/03/15" }
       ] : []),
@@ -101,9 +98,6 @@ export default function SearchModal({
         break
       case 'fatwa':
         router.push(`/fatwas/${result.id}`)
-        break
-      case 'sermon':
-        router.push(`/sermons/${result.id}`)
         break
       case 'lecture':
         router.push(`/lectures/${result.id}`)
@@ -159,7 +153,6 @@ export default function SearchModal({
             <TabsTrigger value="lessons" className="flex-1">الدروس</TabsTrigger>
             <TabsTrigger value="books" className="flex-1">الكتب</TabsTrigger>
             <TabsTrigger value="fatwas" className="flex-1">الفتاوى</TabsTrigger>
-            <TabsTrigger value="sermons" className="flex-1">الخطب</TabsTrigger>
             <TabsTrigger value="lectures" className="flex-1">المحاضرات</TabsTrigger>
             <TabsTrigger value="benefits" className="flex-1">الفوائد</TabsTrigger>
           </TabsList>

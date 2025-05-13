@@ -207,12 +207,6 @@ export default function Header() {
                 الفتاوى
               </Link>
               <Link
-                href="/sermons"
-                className={getNavLinkClass("/sermons")}
-              >
-                الخطب
-              </Link>
-              <Link
                 href="/lectures"
                 className={getNavLinkClass("/lectures")}
               >
@@ -260,9 +254,6 @@ export default function Header() {
               </Link>
               <Link href="/fatwas" className={getMobileNavLinkClass("/fatwas")}>
                 الفتاوى
-              </Link>
-              <Link href="/sermons" className={getMobileNavLinkClass("/sermons")}>
-                الخطب
               </Link>
               <Link href="/lectures" className={getMobileNavLinkClass("/lectures")}>
                 المحاضرات والكلمات

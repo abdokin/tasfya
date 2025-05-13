@@ -14,11 +14,6 @@ export default function ContentCategories() {
       href: "/fatwas",
     },
     {
-      title: "الخطب",
-      icon: <Mic className="h-6 w-6" />,
-      href: "/sermons",
-    },
-    {
       title: "المحاضرات",
       icon: <Video className="h-6 w-6" />,
       href: "/lectures",

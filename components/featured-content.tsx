@@ -30,12 +30,6 @@ export default function FeaturedContent() {
             الفتاوى
           </TabsTrigger>
           <TabsTrigger
-            value="sermons"
-            className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-md px-6"
-          >
-            الخطب
-          </TabsTrigger>
-          <TabsTrigger
             value="benefits"
             className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-md px-6"
           >
@@ -273,121 +267,6 @@ export default function FeaturedContent() {
             </Card>
           </div>
         </TabsContent>
-
-        <TabsContent value="sermons" className="mt-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="overflow-hidden border-0 shadow-sm">
-              <div className="relative h-48">
-                <Image
-                  src="/placeholder.svg?height=200&width=400"
-                  alt="التحذير من الأعمال السيئة"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-0 right-0 p-4">
-                  <span className="bg-amber-600 text-white px-2 py-1 rounded text-xs">خطب</span>
-                </div>
-              </div>
-              <CardContent className="p-4">
-                <div className="flex items-center text-sm text-gray-500 mb-2">
-                  <Calendar className="h-4 w-4 ml-1" />
-                  <span>2018/01/01</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">التحذير من الأعمال السيئة</h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  خطبة تتناول التحذير من الأعمال السيئة وأثرها على الفرد والمجتمع، وكيفية التوبة منها...
-                </p>
-                <div className="flex justify-between items-center">
-                  <Link href="/sermon/1">
-                    <Button variant="link" className="p-0 h-auto text-amber-600">
-                      قراءة المزيد
-                    </Button>
-                  </Link>
-                  <div className="flex space-x-2 space-x-reverse">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Share2 className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden border-0 shadow-sm">
-              <div className="relative h-48">
-                <Image src="/placeholder.svg?height=200&width=400" alt="وقفة للمحاسبة" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-0 right-0 p-4">
-                  <span className="bg-amber-600 text-white px-2 py-1 rounded text-xs">خطب</span>
-                </div>
-              </div>
-              <CardContent className="p-4">
-                <div className="flex items-center text-sm text-gray-500 mb-2">
-                  <Calendar className="h-4 w-4 ml-1" />
-                  <span>2018/01/01</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">وقفة للمحاسبة</h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  خطبة تتناول أهمية محاسبة النفس وتقييم الأعمال بشكل دوري، وكيفية القيام بذلك...
-                </p>
-                <div className="flex justify-between items-center">
-                  <Link href="/sermon/2">
-                    <Button variant="link" className="p-0 h-auto text-amber-600">
-                      قراءة المزيد
-                    </Button>
-                  </Link>
-                  <div className="flex space-x-2 space-x-reverse">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Share2 className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden border-0 shadow-sm">
-              <div className="relative h-48">
-                <Image src="/placeholder.svg?height=200&width=400" alt="وجوب التوكل" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-0 right-0 p-4">
-                  <span className="bg-amber-600 text-white px-2 py-1 rounded text-xs">خطب</span>
-                </div>
-              </div>
-              <CardContent className="p-4">
-                <div className="flex items-center text-sm text-gray-500 mb-2">
-                  <Calendar className="h-4 w-4 ml-1" />
-                  <span>2023/08/28</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">وجوب التوكل وخطر التنطع</h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  خطبة تتناول أهمية التوكل على الله في جميع الأمور، والتحذير من خطر التنطع والتشدد...
-                </p>
-                <div className="flex justify-between items-center">
-                  <Link href="/sermon/3">
-                    <Button variant="link" className="p-0 h-auto text-amber-600">
-                      قراءة المزيد
-                    </Button>
-                  </Link>
-                  <div className="flex space-x-2 space-x-reverse">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Share2 className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
         <TabsContent value="benefits" className="mt-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="overflow-hidden border-0 shadow-sm">

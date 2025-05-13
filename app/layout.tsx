@@ -5,7 +5,11 @@ import "./globals.css"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { AudioPlayerProvider } from "@/context/AudioPlayerContext"
+import { AuthProvider } from "@/context/AuthContext"
 import NewsBar from "@/components/news-bar/news-bar"
+import { Toaster } from "sonner"
+import { cookies } from 'next/headers'
+import { User } from '@/types'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -14,7 +18,8 @@ export const metadata: Metadata = {
   description: "الموقع الرسمي للشيخ - دروس علمية، خطب، محاضرات، فتاوى",
 }
 
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -22,12 +27,15 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <body className={inter.className}>
-        <AudioPlayerProvider>
-          <Header />
-          <NewsBar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
-        </AudioPlayerProvider>
+        <AuthProvider>
+          <AudioPlayerProvider>
+            <Header />
+            <NewsBar />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+            <Toaster position="top-center" richColors />
+          </AudioPlayerProvider>
+        </AuthProvider>
       </body>
     </html>
   )

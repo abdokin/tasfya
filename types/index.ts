@@ -32,9 +32,9 @@ export type User = {
   id: number
   name: string
   email: string
+  avatar_url: string
   password: string
 }
 
 
-export type Sermon = {}
 export type Scholar = {}

@@ -1,42 +1,29 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
-
+import { useAuth } from "@/context/AuthContext"
 export default function RegisterPage() {
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const {register, isLoading} = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setIsLoading(true)
-    setError(null)
 
     const formData = new FormData(event.currentTarget)
+    const name = formData.get("name") as string
+    const email = formData.get("email") as string
     const password = formData.get("password") as string
     const confirmPassword = formData.get("confirmPassword") as string
-
-    if (password !== confirmPassword) {
-      setError("كلمات المرور غير متطابقة")
-      setIsLoading(false)
-      return
-    }
-
-    const result = {
-      error: "TODO: not implemented",
-    }
-
-    if (result?.error) {
-      setError(result.error)
-      setIsLoading(false)
-    }
-    // The redirect is handled in the server action
+    await register({
+      name,
+      email,
+      password,
+      password_confirmation: confirmPassword,
+    })
+    
   }
 
   return (
@@ -48,12 +35,6 @@ export default function RegisterPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
             <div className="space-y-2">
               <Label htmlFor="name">الاسم الكامل</Label>
               <Input id="name" name="name" type="text" required />

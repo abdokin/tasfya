@@ -1,34 +1,27 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
+import { PasswordInput } from "@/components/password-input"
+import { useAuth } from "@/context/AuthContext"
 
 export default function LoginPage() {
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+  const { login, isLoading, isAuthenticated } = useAuth()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setIsLoading(true)
-    setError(null)
 
     const formData = new FormData(event.currentTarget)
-    const result = {
-      error: "TODO: not implemented",
-    }
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
 
-    if (result?.error) {
-      setError(result.error)
-      setIsLoading(false)
-    }
+    await login({
+      email,
+      password,
+    })
   }
 
   return (
@@ -40,21 +33,15 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
             <div className="space-y-2">
               <Label htmlFor="email">البريد الإلكتروني</Label>
-              <Input id="email" name="email" type="email" placeholder="your@email.com" required dir="ltr" />
+              <Input id="email" name="email" type="email" required dir="ltr" />
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password">كلمة المرور</Label>
+                <Label htmlFor="password"></Label>
               </div>
-              <Input id="password" name="password" type="password" required dir="ltr" />
+              <PasswordInput label="كلمة المرور" id="password" name="password" required />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}

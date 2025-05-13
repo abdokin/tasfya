@@ -12,6 +12,7 @@ export type Lecture = {
   thumbnail_url: string;
   audio_url: string;
   published_date: string;
+  content: RichText;
 }
 
 export type RichText = {
@@ -50,21 +51,7 @@ export async function getRecentLecturess(): Promise<Lecture[]> {
 }
 
 
-export async function getLessonById(id: number | string): Promise<Lecture> {
+export async function getLectureById(id: number | string): Promise<Lecture> {
   const response = await api.get<Lecture>(`lectures/${id}`);
   return response;
-}
-
-export async function createLesson(data: Partial<Lecture>): Promise<Lecture> {
-  const response = await api.post<Lecture>('lectures', { lecture: data });
-  return response;
-}
-
-export async function updateLesson(id: number | string, data: Partial<Lecture>): Promise<Lecture> {
-  const response = await api.put<Lecture>(`lectures/${id}`, { lecture: data });
-  return response;
-}
-
-export async function deleteLesson(id: number | string): Promise<void> {
-  await api.delete(`lectures/${id}`);
 }

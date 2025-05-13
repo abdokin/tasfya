@@ -55,17 +55,3 @@ export async function getLessonById(id: number | string): Promise<Lesson> {
   const response = await api.get<Lesson>(`lessons/${id}`);
   return response;
 }
-
-export async function createLesson(data: Partial<Lesson>): Promise<Lesson> {
-  const response = await api.post<Lesson>('lessons', { Lesson: data });
-  return response;
-}
-
-export async function updateLesson(id: number | string, data: Partial<Lesson>): Promise<Lesson> {
-  const response = await api.put<Lesson>(`lessons/${id}`, { Lesson: data });
-  return response;
-}
-
-export async function deleteLesson(id: number | string): Promise<void> {
-  await api.delete(`lessons/${id}`);
-}

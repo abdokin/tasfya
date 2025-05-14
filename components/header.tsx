@@ -30,6 +30,7 @@ import SearchModal from "./search-modal"
 import SocialLinks from "./social-links"
 import { resourceUrl } from "@/lib/utils"
 import { useAuth } from "@/context/AuthContext"
+import { navLinks } from "@/lib/data/navigation"
 
 export default function Header() {
   const { user, logout } = useAuth()
@@ -102,21 +103,10 @@ function NavLinks({ pathname }: { pathname: string }) {
       ? "px-4 py-3 text-sm font-medium text-primary border-b-2 border-primary whitespace-nowrap"
       : "px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary whitespace-nowrap"
 
-  const links = [
-    ["/", "الرئيسية"],
-    ["/lessons", "الدروس العلمية"],
-    ["/fatwas", "الفتاوى"],
-    ["/lectures", "المحاضرات والكلمات"],
-    ["/books", "الكتب"],
-    ["/benefits", "الفوائد"],
-    ["/about", "مع الشيخ"],
-    // ["/comments", "التعليقات"], TODO: Uncomment when comments page is ready
-  ]
-
   return (
     <nav className="flex justify-center">
       <div className="flex overflow-x-auto">
-        {links.map(([href, label]) => (
+        {navLinks.map(({ href, label }) => (
           <Link key={href} href={href} className={getNavLinkClass(href)}>
             {label}
           </Link>
@@ -154,9 +144,7 @@ function UserMenu({
             <span className="hidden sm:inline">حسابي</span>
             <Avatar className="size-8">
               <AvatarImage src={resourceUrl(user.avatar_url)} />
-              <AvatarFallback>
-                {getUserInitials()}
-              </AvatarFallback>
+              <AvatarFallback>{getUserInitials()}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
@@ -231,22 +219,11 @@ function MobileMenu({
       ? "p-2 text-sm font-medium text-primary rounded"
       : "p-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded"
 
-  const links = [
-    ["/", "الرئيسية"],
-    ["/lessons", "الدروس العلمية"],
-    ["/fatwas", "الفتاوى"],
-    ["/lectures", "المحاضرات والكلمات"],
-    ["/books", "الكتب"],
-    ["/benefits", "الفوائد"],
-    ["/about", "مع الشيخ"],
-    ["/comments", "التعليقات"],
-  ]
-
   return (
     <div className="md:hidden border-t">
       <div className="container mx-auto py-4">
         <div className="grid grid-cols-2 gap-2">
-          {links.map(([href, label]) => (
+          {navLinks.map(({ href, label }) => (
             <Link key={href} href={href} className={getMobileNavLinkClass(href)}>
               {label}
             </Link>

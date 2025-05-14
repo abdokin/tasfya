@@ -66,28 +66,28 @@ export default function BookmarksPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <Tabs defaultValue="all" className="w-full">
-              <TabsList className="bg-white border rounded-lg p-1 mb-6 w-fit">
+              <TabsList className="border rounded-lg p-1 mb-6 w-fit">
                 <TabsTrigger
                   value="all"
-                  className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-md px-6"
+                  className="rounded-md px-6"
                 >
                   الكل
                 </TabsTrigger>
                 <TabsTrigger
                   value="lessons"
-                  className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-md px-6"
+                  className="rounded-md px-6"
                 >
                   الدروس
                 </TabsTrigger>
                 <TabsTrigger
                   value="lectures"
-                  className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-md px-6"
+                  className="rounded-md px-6"
                 >
                   المحاضرات
                 </TabsTrigger>
                 <TabsTrigger
                   value="books"
-                  className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-md px-6"
+                  className="rounded-md px-6"
                 >
                   الكتب
                 </TabsTrigger>
@@ -161,8 +161,8 @@ export default function BookmarksPage() {
                 <CardContent className="pt-4">
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="bg-emerald-100 rounded-full p-2 mt-1">
-                        <BookMarked className="h-4 w-4 text-emerald-600" />
+                      <div className="rounded-full p-2 mt-1">
+                        <BookMarked className="size-4 text-primary" />
                       </div>
                       <div>
                         <h4 className="font-medium text-sm">حفظ المحتوى</h4>
@@ -172,8 +172,8 @@ export default function BookmarksPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="bg-emerald-100 rounded-full p-2 mt-1">
-                        <FileText className="h-4 w-4 text-emerald-600" />
+                      <div className="rounded-full p-2 mt-1">
+                        <FileText className="size-4 text-primary" />
                       </div>
                       <div>
                         <h4 className="font-medium text-sm">تصنيف المحفوظات</h4>
@@ -183,8 +183,8 @@ export default function BookmarksPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="bg-emerald-100 rounded-full p-2 mt-1">
-                        <Search className="h-4 w-4 text-emerald-600" />
+                      <div className="rounded-full p-2 mt-1">
+                        <Search className="size-4 text-primary" />
                       </div>
                       <div>
                         <h4 className="font-medium text-sm">البحث في المحفوظات</h4>

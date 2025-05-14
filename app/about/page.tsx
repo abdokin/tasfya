@@ -35,12 +35,12 @@ export default function AboutPage() {
         {/* Profile */}
         <div className="md:col-span-1">
           <Card className="border-gray-100 shadow-sm overflow-hidden">
-            <div className="relative h-60 md:h-80">
+            <div className="relative w-full h-48">
               <Image
                 src={sheikh.image}
                 alt="صورة الشيخ"
                 fill
-                className="object-cover"
+                className="object-fit"
               />
             </div>
             <CardContent className="p-6 text-center">
@@ -48,21 +48,21 @@ export default function AboutPage() {
               <p className="text-gray-600 text-sm mb-4">{sheikh.bio[0]}</p>
               <hr className="my-4" />
               <div className="space-y-3 text-sm text-right">
-                <div className="flex items-center justify-end">
-                  <MapPin className="h-4 w-4 text-gray-500 ml-2" />
+                <div className="flex items-center justify-between gap-2">
                   <span>{sheikh.location}</span>
+                  <MapPin className="size-4 text-gray-500" />
                 </div>
-                <div className="flex items-center justify-end">
-                  <Calendar className="h-4 w-4 text-gray-500 ml-2" />
+                <div className="flex items-center justify-between gap-2">
                   <span>{sheikh.birth}</span>
+                  <Calendar className="size-4 text-gray-500" />
                 </div>
-                <div className="flex items-center justify-end">
-                  <Mail className="h-4 w-4 text-gray-500 ml-2" />
+                <div className="flex items-center justify-between gap-2">
                   <span>{sheikh.email}</span>
+                  <Mail className="size-4 text-gray-500" />
                 </div>
-                <div className="flex items-center justify-end">
-                  <Phone className="h-4 w-4 text-gray-500 ml-2" />
+                <div className="flex items-center justify-between gap-2">
                   <span>{sheikh.phone}</span>
+                  <Phone className="size-4 text-gray-500" />
                 </div>
               </div>
               <hr className="my-4" />
@@ -75,7 +75,7 @@ export default function AboutPage() {
 
         {/* Tabs */}
         <div className="md:col-span-2">
-          <Tabs defaultValue="bio">
+          <Tabs defaultValue="bio" dir="rtl">
             <TabsList className="border rounded-lg p-1 mb-6 w-fit mx-auto">
               <TabsTrigger value="bio" className="rounded-md px-6">السيرة الذاتية</TabsTrigger>
               <TabsTrigger value="publications" className="rounded-md px-6">المؤلفات</TabsTrigger>

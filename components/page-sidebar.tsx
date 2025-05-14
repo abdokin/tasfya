@@ -38,7 +38,7 @@ export default async function PageSidebar() {
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href="/about">
+                <Link href="/contact">
                   <span className="flex items-center justify-center gap-1">
                     <Mail className="h-3.5 w-3.5 ml-1" />
                     تواصل

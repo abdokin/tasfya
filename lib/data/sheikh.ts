@@ -18,7 +18,7 @@ const sheikh: SheikhInfo = {
     birth: "مواليد 1370هـ / 1950م",
     email: "contact@sheikh-name.com",
     phone: "+966 12 345 6789",
-    image: "/placeholder.svg?height=400&width=300"
+    image: "/logo.png"
 }
 
 export default sheikh

@@ -38,6 +38,13 @@ function LessonCard({ lesson }: { lesson: Lesson }) {
               <span className="text-xs text-gray-500">{formatDate(lesson.published_date)}</span>
               <Badge>{"دروس علمية"}</Badge>
               <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-xs">{lesson.category}</span>
+              {lesson.series_id && (
+                <Link href={`/series/${lesson.series_id}`}>
+                  <Badge variant="outline" className="cursor-pointer">
+                    سلسلة: {lesson.series_title}
+                  </Badge>
+                </Link>
+              )}
             </div>
             <h3 className="text-lg font-medium">{lesson.title}</h3>
           </div>
@@ -71,7 +78,7 @@ export function RecentLessons({ lessons }: { lessons: Lesson[] }) {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">أحدث الدروس العلمية</h2>
         <Button asChild variant="link">
-          <Link href="/lessons">
+          <Link href="/series">
             عرض الكل <ArrowLeft className="h-4 w-4 mr-1" />
           </Link>
         </Button>

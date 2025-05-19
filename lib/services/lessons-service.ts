@@ -1,7 +1,6 @@
 'use server';
 
 import { api, RequestOptions } from '@/lib/api-client';
-import { title } from 'process';
 
 export type Lesson = {
   id: string;
@@ -13,6 +12,8 @@ export type Lesson = {
   content: RichText;
   audio_url: string;
   published_date: Date;
+  series_id?: string;
+  series_title?: string;
 }
 
 export type RichText = {

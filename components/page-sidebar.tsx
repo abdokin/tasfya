@@ -54,37 +54,39 @@ export default async function PageSidebar() {
       </Card>
 
       {/* Most Downloaded Books */}
-      <Card className="border border-gray-100 shadow-sm">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-lg text-primary">الكتب الأكثر تحميلاً</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-4">
-          <div className="space-y-3">
-            {mostDownloadedBooks.map((book) => (
-              <div key={book.id} className="flex items-center gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0">
-                <div className="flex-1">
-                  <h4 className="font-medium text-sm mb-1 line-clamp-1">
-                    {book.title}
-                  </h4>
-                  <div className="flex items-center text-xs text-gray-500 mb-2 gap-1">
-                    <Download className="h-3 w-3" />
-                    <span>{book.downloads} تحميل</span>
-                  </div>
-                  <Link href={resourceUrl(book.file_url)} download target="_blank">
-                    <Button variant="outline">
+      {mostDownloadedBooks && mostDownloadedBooks.length > 0 &&
+        (<Card className="border border-gray-100 shadow-sm">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg text-primary">الكتب الأكثر تحميلاً</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <div className="space-y-3">
+              {mostDownloadedBooks.map((book) => (
+                <div key={book.id} className="flex items-center gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0">
+                  <div className="flex-1">
+                    <h4 className="font-medium text-sm mb-1 line-clamp-1">
+                      {book.title}
+                    </h4>
+                    <div className="flex items-center text-xs text-gray-500 mb-2 gap-1">
                       <Download className="h-3 w-3" />
-                      تحميل
-                    </Button>
-                  </Link>
+                      <span>{book.downloads} تحميل</span>
+                    </div>
+                    <Link href={resourceUrl(book.file_url)} download target="_blank">
+                      <Button variant="outline">
+                        <Download className="h-3 w-3" />
+                        تحميل
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>)
+      }
 
       {/* Most Visited Content */}
-      <Card className="border border-gray-100 shadow-sm">
+      {mostVisitedBooks && mostVisitedBooks.length > 0 && (<Card className="border border-gray-100 shadow-sm">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg text-primary">المحتوى الأكثر زيارة</CardTitle>
         </CardHeader>
@@ -108,7 +110,7 @@ export default async function PageSidebar() {
             ))}
           </div>
         </CardContent>
-      </Card>
+      </Card>)}
     </div>
   )
 }

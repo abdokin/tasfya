@@ -1,6 +1,6 @@
 export const navLinks = [
     { href: "/", label: "الرئيسية" },
-    { href: "/lessons", label: "الدروس العلمية" },
+    { href: "/series", label: "المكتبة العلمية" },
     { href: "/fatwas", label: "الفتاوى" },
     { href: "/lectures", label: "المحاضرات والكلمات" },
     { href: "/books", label: "الكتب" },

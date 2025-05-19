@@ -116,7 +116,7 @@ export default function BookmarksPage() {
                     يمكنك حفظ الدروس التي تعجبك لتسهيل الوصول إليها فيما بعد
                   </p>
                   <Button asChild>
-                    <Link href="/lessons">استعرض الدروس</Link>
+                    <Link href="/series">استعرض المكتبة</Link>
                   </Button>
                 </div>
               </TabsContent>

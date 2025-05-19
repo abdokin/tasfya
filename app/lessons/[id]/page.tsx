@@ -4,8 +4,6 @@ import { Play, Calendar, Clock } from "lucide-react";
 import { formatDuration, formatDate, resourceUrl } from "@/lib/utils";
 import Image from "next/image";
 import { AudioTrack, } from "@/types";
-import FeaturedSheikh from "@/components/featured-sheikh";
-import UpcomingEvents from "@/components/upcoming-events";
 import { getLessonById } from "@/lib/services/lessons-service";
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -39,7 +37,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/lessons">الدروس العلمية</BreadcrumbLink>
+              <BreadcrumbLink href="/series">المكتبة العلمية</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

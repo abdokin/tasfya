@@ -33,7 +33,7 @@ export default function AudioPlayerButton({
       size={size || "default"}
       className={className}
     >
-      {isPlaying ? <Play className="h-5 w-5" /> : <Pause className="h-5 w-5" />}
+      <Play className="h-5 w-5" />
       {isGhost ? "استمع الآن" : <span className="sr-only">استمع</span>}    
     </Button>
   )

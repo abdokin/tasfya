@@ -5,7 +5,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Book } from "lucide-react"
 import Link from "next/link"
 import { Book as TBook } from "@/lib/services/books-service"
-import { resourceUrl } from "@/lib/utils"
+import { formatDate, resourceUrl } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
 import {
   Carousel,
   CarouselContent,
@@ -35,6 +36,7 @@ const BookCard = ({ book }: { book: TBook }) => {
                 <Book className="h-4 w-4" />
               </div>
               <span className="text-xs text-gray-500">{book.year} هـ</span>
+              <Badge>{book.category}</Badge>
             </div>
             <h3 className="text-lg font-semibold mb-3 line-clamp-1">{book.title}</h3>
             <div className="text-sm text-gray-600 space-y-1 mb-4">
@@ -48,10 +50,13 @@ const BookCard = ({ book }: { book: TBook }) => {
                   <span className="font-medium">{book.volumes}</span>
                 </p>
               )}
-              <p className="flex justify-between">
-                <span>رقم الطبعة:</span>
-                <span className="font-medium">{book.category}</span>
-              </p>
+
+              {book.published_date && (
+                <p className="flex justify-between">
+                  <span>تاريخ النشر:</span>
+                  <span className="font-medium">{formatDate(book.published_date)}</span>
+                </p>
+              )}
             </div>
             <Link href={`/books/${book.id}`}>
               <Button className="w-full">قراءة الكتاب</Button>
@@ -79,7 +84,7 @@ export function RecentBooks({ books }: { books: TBook[] }) {
         className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-full mx-auto">
         <CarouselContent dir="ltr">
           {books.map((book, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 2xl:basis-1/4">
               <div className="p-1">
                 <BookCard book={book} />
               </div>

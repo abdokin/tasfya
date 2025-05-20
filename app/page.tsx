@@ -26,15 +26,22 @@ export default async function Home() {
               <ContentCategories />
             </div>
             <div className="mb-12">
-              <RecentLessons lessons={lessons} />
+              {lessons.length > 0 && <RecentLessons lessons={lessons} />}
+              {lessons.length === 0 && (
+                <div className="text-center text-gray-500">
+                  لا توجد خطب جديدة حالياً
+                  </div>
+              )}
             </div>
             <div className="mb-12">
-              <RecentFatwas fatwas={fatwas} />
+              {fatwas.length > 0 && <RecentFatwas fatwas={fatwas} />}
+              {fatwas.length === 0 && (
+                <div className="text-center text-gray-500">
+                  لا توجد فتاوى جديدة حالياً
+                </div>
+              )}
             </div>
-
           </div>
-
-          {/* Sidebar remains the same */}
           <div className="lg:col-span-1">
             <PageSidebar />
           </div>

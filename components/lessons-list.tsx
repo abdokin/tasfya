@@ -8,6 +8,7 @@ import { Lesson } from "@/lib/services/lessons-service"
 import { formatDate, resourceUrl } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { useAudioPlayer } from "@/context/AudioPlayerContext"
+import sheikh from "@/lib/data/sheikh"
 
 function LessonCard({ lesson }: { lesson: Lesson }) {
   const { setTrack } = useAudioPlayer()
@@ -15,7 +16,7 @@ function LessonCard({ lesson }: { lesson: Lesson }) {
     const audioTrack: AudioTrack = {
       id: Number(lessonId),
       title: lesson.title,
-      artist: "الشيخ عبد الله",
+      artist: sheikh.name,
       audioUrl: resourceUrl(lesson.audio_url),
       duration: lesson.duration || 300,
       thumbnailUrl: resourceUrl(lesson.thumbnail_url),

@@ -136,10 +136,10 @@ export default async function BookPage({
               {book.file_url && (
                 <div className="mt-6">
                   <Button asChild>
-                    <a href={book.file_url} download className="flex items-center gap-2">
+                    <Link target="_blank" href={resourceUrl(book.file_url)} download className="flex items-center gap-2">
                       <Download className="h-4 w-4" />
                       <span>تحميل الكتاب</span>
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               )}

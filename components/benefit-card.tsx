@@ -9,6 +9,7 @@ import { formatDate, resourceUrl } from "@/lib/utils"
 import { Benefit } from "@/lib/services/benefits-service"
 import { useAudioPlayer } from "@/context/AudioPlayerContext"
 import { AudioTrack } from "@/types"
+import sheikh from "@/lib/data/sheikh"
 
 export const BenefitCard = ({ benefit }: { benefit: Benefit }) => {
     const player = useAudioPlayer()
@@ -19,7 +20,7 @@ export const BenefitCard = ({ benefit }: { benefit: Benefit }) => {
         thumbnailUrl: resourceUrl(benefit.thumbnail_url),
         duration: benefit.duration,
         type: "benefit",
-        artist: "الشيخ عبد الله",
+        artist: sheikh.name,
     }
     return (
         <Card className="overflow-hidden border-0 shadow-sm group hover:shadow-md transition-shadow">

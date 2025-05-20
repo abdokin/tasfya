@@ -9,6 +9,7 @@ import { getLessonById } from "@/lib/services/lessons-service";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PageSidebar from "@/components/page-sidebar";
 import AudioPlayerButton from "@/components/audio-player/audio-player-button";
+import sheikh from "@/lib/data/sheikh";
 
 export default async function LessonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -21,7 +22,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   const audioTrack: AudioTrack = {
     id: Number(lesson.id),
     title: lesson.title,
-    artist: "الشيخ عبد الله",
+    artist: sheikh.name,
     audioUrl: resourceUrl(lesson.audio_url),
     duration: lesson.duration || 300,
     thumbnailUrl: resourceUrl(lesson.thumbnail_url),
@@ -52,7 +53,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
           <Card className="overflow-hidden border-0 shadow-md">
             <div className="relative h-48 md:h-64 bg-gray-900">
               <Image
-                src={resourceUrl(lesson.thumbnail_url)}
+                src={"/speech.jpg"}
                 alt={lesson.title}
                 fill
                 className="object-cover opacity-70"

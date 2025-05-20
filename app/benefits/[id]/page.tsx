@@ -8,6 +8,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 import PageSidebar from "@/components/page-sidebar";
 import AudioPlayerButton from "@/components/audio-player/audio-player-button";
 import { getBenefitById } from "@/lib/services/benefits-service";
+import sheikh from "@/lib/data/sheikh";
 
 export default async function BenefitPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -20,7 +21,7 @@ export default async function BenefitPage({ params }: { params: Promise<{ id: st
   const audioTrack: AudioTrack = {
     id: Number(benefit.id),
     title: benefit.title,
-    artist: "الشيخ عبد الله",
+    artist: sheikh.name,
     audioUrl: resourceUrl(benefit.audio_url),
     duration: benefit.duration,
     thumbnailUrl: resourceUrl(benefit.thumbnail_url),

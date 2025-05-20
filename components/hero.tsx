@@ -7,13 +7,14 @@ import { Lesson } from "@/lib/services/lessons-service"
 import { useAudioPlayer } from "@/context/AudioPlayerContext"
 import { AudioTrack } from "@/types"
 import Link from "next/link"
+import sheikh from "@/lib/data/sheikh"
 
 export default function Hero({ lesson }: { lesson: Lesson }) {
   const { setTrack } = useAudioPlayer()
   const track: AudioTrack = {
     id: Number(lesson.id),
     title: lesson.title,
-    artist: "الشيخ عبد الله",
+    artist: sheikh.name,
     audioUrl: resourceUrl(lesson.audio_url),
     duration: lesson.duration || 300,
     thumbnailUrl: resourceUrl(lesson.thumbnail_url),
@@ -24,7 +25,7 @@ export default function Hero({ lesson }: { lesson: Lesson }) {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={resourceUrl(lesson.thumbnail_url)}
+          src={"/speech.jpg"}
           alt="Hero background"
           fill
           className="object-cover"

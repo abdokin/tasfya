@@ -8,6 +8,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 import PageSidebar from "@/components/page-sidebar";
 import AudioPlayerButton from "@/components/audio-player/audio-player-button";
 import { getLectureById } from "@/lib/services/lectures-service";
+import sheikh from "@/lib/data/sheikh";
 
 export default async function LecturePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -20,7 +21,7 @@ export default async function LecturePage({ params }: { params: Promise<{ id: st
   const audioTrack: AudioTrack = {
     id: Number(lecture.id),
     title: lecture.title,
-    artist: "الشيخ عبد الله",
+    artist: sheikh.name,
     audioUrl: resourceUrl(lecture.audio_url),
     duration: lecture.duration,
     thumbnailUrl: resourceUrl(lecture.thumbnail_url),

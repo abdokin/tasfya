@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Lecture } from "@/lib/services/lectures-service";
 import { useAudioPlayer } from "@/context/AudioPlayerContext";
 import { AudioTrack } from "@/types"
+import sheikh from "@/lib/data/sheikh";
 
 export const LectureCard = ({ lecture }: { lecture: Lecture }) => {
     const player = useAudioPlayer();
@@ -27,7 +28,7 @@ export const LectureCard = ({ lecture }: { lecture: Lecture }) => {
         thumbnailUrl: resourceUrl(lecture.thumbnail_url),
         duration: lecture.duration,
         type: "lecture",
-        artist: "الشيخ عبد الله",
+        artist: sheikh.name,
     }
     return (
         <Card className="border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">

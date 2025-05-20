@@ -124,15 +124,24 @@ function UserMenu({
   onSignOut: () => void
 }) {
   const getUserInitials = () => {
-    if (!user || !user.name) return user?.email[0].toUpperCase()
+    if (!user) return "?"
+    
+    // Use email initial if no name is available
+    if (!user.name || user.name.trim() === "") {
+      return user.email?.[0]?.toUpperCase() || "?"
+    }
+    
+    // Get first letter of each word in the name, max 2 characters
     return user.name
-      .split(" ")
-      .map((n: string) => n[0])
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((word: string) => word[0]?.toUpperCase() || "")
       .join("")
-      .toUpperCase()
   }
 
-  if (user) {
+  if (user && user.id) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

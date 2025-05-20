@@ -8,9 +8,7 @@ import { AudioPlayerProvider } from "@/context/AudioPlayerContext"
 import { AuthProvider } from "@/context/AuthContext"
 import NewsBar from "@/components/news-bar/news-bar"
 import { Toaster } from "sonner"
-import { cookies } from 'next/headers'
-import { User } from '@/types'
-
+import { getRecentNews } from "@/lib/services/news-service"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -24,13 +22,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const news = await getRecentNews()
   return (
     <html lang="ar" dir="rtl">
       <body className={inter.className}>
         <AuthProvider>
           <AudioPlayerProvider>
             <Header />
-            <NewsBar />
+            <NewsBar news={news} />
             <main className="min-h-screen">{children}</main>
             <Footer />
             <Toaster position="top-center" richColors />

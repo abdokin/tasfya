@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ExternalLink, Mail, BookOpen, Download } from "lucide-react"
 import Link from "next/link"
 import SocialLinks from "./social-links"
+import TwitterFeed from "./twitter-feed"
 import { getMostDownloadedBooks, getMostViewedBooks } from "@/lib/services/books-service"
 import { resourceUrl } from "@/lib/utils"
 
@@ -111,6 +112,9 @@ export default async function PageSidebar() {
           </div>
         </CardContent>
       </Card>)}
+
+      {/* Twitter Feed */}
+      <TwitterFeed />
     </div>
   )
 }

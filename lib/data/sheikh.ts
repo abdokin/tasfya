@@ -6,9 +6,11 @@ export interface SheikhInfo {
     email: string
     phone: string
     image: string
+    twitter: string
 }
 const sheikh: SheikhInfo = {
-    name: "الشيخ عبدالعزيز الراجحي",
+    name: "الشيخ عبد العزيز الراجحي",
+    twitter: "Moh1Rz2H3",
     bio: [
         "ولد الشيخ في مدينة الرياض عام 1370هـ الموافق 1950م، ونشأ في أسرة عُرفت بالعلم والصلاح...",
         "انتقل بعد ذلك للدراسة في كلية الشريعة بجامعة الإمام محمد بن سعود الإسلامية...",

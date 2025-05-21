@@ -11,6 +11,8 @@ export type Lesson = {
   thumbnail_url: string;
   content: RichText;
   audio_url: string;
+  video_url?: string;
+  media_type: 'audio' | 'video';
   published_date: Date;
   series_id?: string;
   series_title?: string;

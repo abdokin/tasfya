@@ -12,8 +12,8 @@ import { getRecentNews } from "@/lib/services/news-service"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "الموقع الرسمي للشيخ",
-  description: "الموقع الرسمي للشيخ - دروس علمية، خطب، محاضرات، فتاوى",
+  title: " موقع فضيلة الشيخ محمد بن رمزان الهاجري - الموقع الرسمي",
+  description: "الموقع الرسمي لفضيلة الشيخ محمد بن رمزان الهاجري - الموقع الرسمي",
 }
 
 

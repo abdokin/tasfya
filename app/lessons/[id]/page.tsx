@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Play, Calendar, Clock } from "lucide-react";
+import { Play, Calendar, Clock, ExternalLink } from "lucide-react";
 import { formatDuration, formatDate, resourceUrl } from "@/lib/utils";
 import Image from "next/image";
 import { AudioTrack, } from "@/types";
@@ -10,16 +10,18 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 import PageSidebar from "@/components/page-sidebar";
 import AudioPlayerButton from "@/components/audio-player/audio-player-button";
 import sheikh from "@/lib/data/sheikh";
+import Link from "next/link";
 
 export default async function LessonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const lesson  = await getLessonById(id);
+  const lesson = await getLessonById(id);
 
   if (!lesson) {
     return <div className="container mx-auto px-4 py-8">الدرس غير موجود</div>;
   }
-  const audioTrack: AudioTrack = {
+
+  const audioTrack: AudioTrack | null = lesson.media_type === 'audio' ? {
     id: Number(lesson.id),
     title: lesson.title,
     artist: sheikh.name,
@@ -27,11 +29,11 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
     duration: lesson.duration || 300,
     thumbnailUrl: resourceUrl(lesson.thumbnail_url),
     type: "lesson"
-  };
+  } : null;
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-      <Breadcrumb className="mb-4">
+        <Breadcrumb className="mb-4">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/">الرئيسية</BreadcrumbLink>
@@ -59,15 +61,30 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
                 className="object-cover opacity-70"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <AudioPlayerButton track={audioTrack} />
+                {lesson.media_type === 'audio' && audioTrack ? (
+                  <AudioPlayerButton track={audioTrack} />
+                ) : lesson.media_type === 'video' && lesson.video_url ? (
+                  <div className="w-full h-full aspect-video">
+                    <iframe
+                      className="w-full h-full rounded-md"
+                      src={lesson.video_url.replace("watch?v=", "embed/")}
+                      title={lesson.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : null}
               </div>
             </div>
 
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs">درس علمي</span>
-                <span className="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs">{lesson.category}</span>
+                  <span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs">
+                    {lesson.media_type === 'video' ? 'فيديو' : 'درس صوتي'}
+                  </span>
+                  <span className="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs">{lesson.category}</span>
                 </div>
               </div>
 
@@ -87,14 +104,25 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
               <div className="prose max-w-none">
                 <p className="text-gray-700 leading-relaxed">{lesson.description}</p>
                 {lesson.content && (
-                  <div className="mt-4 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" 
-                       dangerouslySetInnerHTML={{ __html: lesson.content.body }} />
+                  <div className="mt-4 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
+                    dangerouslySetInnerHTML={{ __html: lesson.content.body }} />
                 )}
               </div>
 
               <div className="mt-8 flex flex-wrap gap-4">
-                {lesson.audio_url && (
-                  <Button variant="outline">تحميل الدرس</Button>
+                {lesson.media_type === 'audio' && lesson.audio_url && (
+                  <Button variant="outline">تحميل الملف الصوتي</Button>
+                )}
+                {lesson.media_type === 'video' && lesson.video_url && (
+                  <Button
+                    variant="outline"
+                    asChild
+                  >
+                    <Link href={lesson.video_url} target="_blank" className="flex items-center">
+                      <ExternalLink className="h-4 w-4 ml-1" />
+                      مشاهدة على يوتيوب
+                    </Link>
+                  </Button>
                 )}
               </div>
             </CardContent>
@@ -102,7 +130,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
         </div>
 
         <div className="md:col-span-1">
-          <PageSidebar/>
+          <PageSidebar />
         </div>
       </div>
     </div>

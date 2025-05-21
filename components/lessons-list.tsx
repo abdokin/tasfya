@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft, Play, FileText, Eye } from "lucide-react"
+import { ArrowLeft, Play, FileText, Eye, Video, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import type { AudioTrack } from "@/types"
 import { Lesson } from "@/lib/services/lessons-service"
@@ -13,16 +13,20 @@ import sheikh from "@/lib/data/sheikh"
 function LessonCard({ lesson }: { lesson: Lesson }) {
   const { setTrack } = useAudioPlayer()
   const handlePlayClick = (lessonId: string) => {
-    const audioTrack: AudioTrack = {
-      id: Number(lessonId),
-      title: lesson.title,
-      artist: sheikh.name,
-      audioUrl: resourceUrl(lesson.audio_url),
-      duration: lesson.duration || 300,
-      thumbnailUrl: resourceUrl(lesson.thumbnail_url),
-      type: "lesson"
+    if (lesson.media_type === 'video' && lesson.video_url) {
+      window.open(lesson.video_url, "_blank")
+    } else {
+      const audioTrack: AudioTrack = {
+        id: Number(lessonId),
+        title: lesson.title,
+        artist: sheikh.name,
+        audioUrl: resourceUrl(lesson.audio_url),
+        duration: lesson.duration || 300,
+        thumbnailUrl: resourceUrl(lesson.thumbnail_url),
+        type: "lesson"
+      }
+      setTrack(audioTrack)
     }
-    setTrack(audioTrack)
   }
   return (
     <Card
@@ -32,13 +36,16 @@ function LessonCard({ lesson }: { lesson: Lesson }) {
       <CardContent className="p-4">
         <div className="flex flex-col md:flex-row md:items-center gap-4">
           <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full border text-primary">
-            <FileText className="h-6 w-6" />
+            {lesson.media_type === 'video' ? (
+              <Video className="h-6 w-6" />
+            ) : (
+              <FileText className="h-6 w-6" />
+            )}
           </div>
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2 mb-1">
               <span className="text-xs text-gray-500">{formatDate(lesson.published_date)}</span>
-              <Badge>{"دروس علمية"}</Badge>
-              <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-xs">{lesson.category}</span>
+              <Badge>{lesson.media_type === 'video' ? 'فيديو' : 'صوت'}</Badge>
               {lesson.series_id && (
                 <Link href={`/series/${lesson.series_id}`}>
                   <Badge variant="outline" className="cursor-pointer">
@@ -56,8 +63,17 @@ function LessonCard({ lesson }: { lesson: Lesson }) {
               className="rounded-md"
               onClick={() => handlePlayClick(lesson.id)}
             >
-              <Play className="h-4 w-4 ml-1" />
-              <span>استماع</span>
+              {lesson.media_type === 'video' ? (
+                <>
+                  <ExternalLink className="h-4 w-4 ml-1" />
+                  <span>مشاهدة</span>
+                </>
+              ) : (
+                <>
+                  <Play className="h-4 w-4 ml-1" />
+                  <span>استماع</span>
+                </>
+              )}
             </Button>
             <Link href={`/lessons/${lesson.id}`}>
               <Button size="sm">

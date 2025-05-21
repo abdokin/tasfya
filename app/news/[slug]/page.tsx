@@ -11,7 +11,7 @@ interface NewsPageProps {
 export default async function NewsItemPage({ params }: NewsPageProps) {
   const { slug } = await params;
   const news = await getNewsItem(slug);
-  if (!news && !news.id) {
+  if (!news.id) {
     notFound();
   }
   return (
@@ -34,11 +34,6 @@ export default async function NewsItemPage({ params }: NewsPageProps) {
             />
           </div>
         )}
-
-        <div
-          className="prose dark:prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: news.content }}
-        />
       </div>
     </div>
   );

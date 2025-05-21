@@ -9,7 +9,7 @@ export interface SheikhInfo {
     twitter: string
 }
 const sheikh: SheikhInfo = {
-    name: "الشيخ عبد العزيز الراجحي",
+    name: "الشيخ محمد بن رمزان الهاجري",
     twitter: "Moh1Rz2H3",
     bio: [
         "ولد الشيخ في مدينة الرياض عام 1370هـ الموافق 1950م، ونشأ في أسرة عُرفت بالعلم والصلاح...",

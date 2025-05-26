@@ -68,20 +68,6 @@ export default function ContactPage() {
       <Card className="border-gray-100 shadow-sm max-w-4xl">
         <CardContent className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 border rounded-md">
-              <h4 className="font-semibold mb-2">البريد الإلكتروني</h4>
-              <p className="flex items-center text-sm gap-1">
-                <Mail className="size-4" />
-                {contact.email}
-              </p>
-            </div>
-            <div className="p-4 border rounded-md">
-              <h4 className="font-semibold mb-2">الهاتف</h4>
-              <p className="flex items-center text-sm gap-1">
-                <Phone className="size-4" />
-                {contact.phone}
-              </p>
-            </div>
           </div>
 
           {success ? (

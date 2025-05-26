@@ -6,7 +6,7 @@ export default function ContentCategories() {
     {
       title: "الدروس العلمية",
       icon: <Book className="h-6 w-6" />,
-      href: "/lessons",
+      href: "/series",
     },
     {
       title: "الفتاوى",

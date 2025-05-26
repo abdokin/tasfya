@@ -3,6 +3,9 @@ import { getLectureById } from "@/lib/services/lectures-service";
 import { Suspense } from "react";
 import LectureDetailSkeleton from "@/components/skeletons/lecture-detail-skeleton";
 import LectureContent from "./lecture-content";
+import AudioJsonLd from "@/components/json-ld/audio-json-ld";
+import { formatDate, formatDuration, resourceUrl } from "@/lib/utils";
+import sheikh from "@/lib/data/sheikh";
 
 type Props = {
   params: { id: string }
@@ -34,8 +37,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function LecturePage({ params }: { params: { id: string } }) {
   return (
-    <Suspense fallback={<LectureDetailSkeleton />}>
-      <LectureContent id={params.id} />
-    </Suspense>
+    <>
+      <LectureJsonLdWrapper id={params.id} />
+      <Suspense fallback={<LectureDetailSkeleton />}>
+        <LectureContent id={params.id} />
+      </Suspense>
+    </>
   );
+}
+
+// Separate component for JSON-LD to avoid issues with suspense
+function LectureJsonLdWrapper({ id }: { id: string }) {
+  const lecture = getLectureById(id);
+  // Using Promise to handle async data
+  return lecture.then(lectureData => {
+    if (!lectureData) return null;
+    
+    const formattedDuration = lectureData.duration ? 
+      `PT${Math.floor(lectureData.duration / 60)}M${lectureData.duration % 60}S` : 
+      "PT30M";
+    
+    return (
+      <AudioJsonLd
+        name={lectureData.title}
+        description={lectureData.description || `محاضرة ${lectureData.title} من محاضرات فضيلة الشيخ محمد بن رمزان الهاجري`}
+        contentUrl={resourceUrl(lectureData.audio_url)}
+        uploadDate={lectureData.published_date || new Date().toISOString()}
+        duration={formattedDuration}
+        thumbnailUrl={lectureData.thumbnail_url ? resourceUrl(lectureData.thumbnail_url) : undefined}
+        author={sheikh.name}
+      />
+    );
+  });
 }

@@ -6,10 +6,21 @@ import Image from "next/image"
 import SocialLinks from "@/components/social-links"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Metadata } from "next"
 
 import sheikh from "@/lib/data/sheikh"
 import publications from "@/lib/data/publications"
 import activities from "@/lib/data/activities"
+
+export const metadata: Metadata = {
+  title: "عن الشيخ | موقع فضيلة الشيخ محمد بن رمزان الهاجري",
+  description: "تعرف على السيرة الذاتية للشيخ محمد بن رمزان الهاجري ونبذة عن حياته ومؤلفاته ونشاطاته العلمية",
+  openGraph: {
+    title: "عن الشيخ | موقع فضيلة الشيخ محمد بن رمزان الهاجري",
+    description: "تعرف على السيرة الذاتية للشيخ محمد بن رمزان الهاجري ونبذة عن حياته ومؤلفاته ونشاطاته العلمية",
+    type: "profile",
+  },
+}
 
 export default function AboutPage() {
   return (

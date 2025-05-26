@@ -3,6 +3,7 @@ import { getSeriesById } from "@/lib/services/series-service";
 import { Suspense } from "react";
 import SeriesDetailSkeleton from "@/components/skeletons/series-detail-skeleton";
 import SeriesContent from "./series-content";
+import SeriesJsonLd from "@/components/json-ld/series-json-ld";
 
 type Props = {
   params: { id: string }
@@ -33,8 +34,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function SeriesPage({ params }: { params: { id: string } }) {
   return (
-    <Suspense fallback={<SeriesDetailSkeleton />}>
-      <SeriesContent id={params.id} />
-    </Suspense>
+    <>
+      <SeriesJsonLdWrapper id={params.id} />
+      <Suspense fallback={<SeriesDetailSkeleton />}>
+        <SeriesContent id={params.id} />
+      </Suspense>
+    </>
   );
+}
+
+// Separate component for JSON-LD to avoid issues with suspense
+function SeriesJsonLdWrapper({ id }: { id: string }) {
+  const series = getSeriesById(id);
+  
+  // Using Promise to handle async data
+  series.then(data => {
+    if (!data || !data.lessons || data.lessons.length === 0) return null;
+    
+    return (
+      <SeriesJsonLd
+        title={data.title}
+        description={data.description || `سلسلة ${data.title} من سلاسل فضيلة الشيخ محمد بن رمزان الهاجري`}
+        url={`${process.env.NEXT_PUBLIC_SITE_URL}/series/${data.id}`}
+        lessons={data.lessons.map(lesson => ({
+          id: lesson.id,
+          title: lesson.title,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/lessons/${lesson.id}`
+        }))}
+      />
+    );
+  });
+  
+  return null;
 }

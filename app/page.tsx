@@ -7,6 +7,15 @@ import PageSidebar from "@/components/page-sidebar"
 import { getRecentLessons } from "@/lib/services/lessons-service"
 import { getRecentFatwas } from "@/lib/services/fatwas-service"
 import { getRecentBooks } from "@/lib/services/books-service"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "الصفحة الرئيسية | موقع فضيلة الشيخ محمد بن رمزان الهاجري",
+  description: "الموقع الرسمي لفضيلة الشيخ محمد بن رمزان الهاجري - يحتوي على دروس ومحاضرات وفتاوى وكتب ومقالات متنوعة",
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL,
+  },
+};
 
 export default async function Home() {
   const [lessons, fatwas, books] = await Promise.all([

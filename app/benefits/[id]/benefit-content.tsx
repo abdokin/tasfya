@@ -9,11 +9,13 @@ import PageSidebar from "@/components/page-sidebar";
 import AudioPlayerButton from "@/components/audio-player/audio-player-button";
 import { getBenefitById } from "@/lib/services/benefits-service";
 import sheikh from "@/lib/data/sheikh";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export default async function BenefitPage({ id }: { id: string }) {
   const benefit = await getBenefitById(id);
   if (!benefit) {
-    return <div className="text-center">الفائدة غير موجودة</div>;
+    notFound();
   }
 
   const audioTrack: AudioTrack = {

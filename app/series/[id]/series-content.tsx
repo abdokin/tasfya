@@ -8,20 +8,13 @@ import PageSidebar from "@/components/page-sidebar";
 import { formatDate } from "@/lib/utils";
 import { BookOpen } from "lucide-react";
 import { LessonsList } from "@/components/lessons-list";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export default async function SeriesDetailPage({ id }: { id: string }) {
     const series = await getSeriesById(id);
     if (!series) {
-        return (
-            <div className="bg-gray-50 min-h-screen py-8">
-                <div className="container mx-auto px-4">
-                    <div className="text-center py-16">
-                        <h1 className="text-3xl font-bold text-gray-900">السلسلة غير موجودة</h1>
-                        <p className="mt-4 text-gray-600">لم يتم العثور على السلسلة المطلوبة</p>
-                    </div>
-                </div>
-            </div>
-        );
+        notFound();
     }
     return (
         <div className="bg-gray-50 min-h-screen py-8">

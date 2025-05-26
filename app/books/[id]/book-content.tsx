@@ -13,12 +13,14 @@ import { getBookById } from "@/lib/services/books-service";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export default async function BookContent({ id }: { id: string }) {
   const book = await getBookById(id);
 
   if (!book) {
-    return <div className="container mx-auto px-4 py-8">الكتاب غير موجود</div>;
+    notFound();
   }
 
   return (

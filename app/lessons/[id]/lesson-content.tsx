@@ -11,12 +11,14 @@ import PageSidebar from "@/components/page-sidebar";
 import AudioPlayerButton from "@/components/audio-player/audio-player-button";
 import sheikh from "@/lib/data/sheikh";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export default async function LessonContent({ id }: { id: string }) {
   const lesson = await getLessonById(id);
 
   if (!lesson) {
-    return <div className="container mx-auto px-4 py-8">الدرس غير موجود</div>;
+    notFound();
   }
 
   const audioTrack: AudioTrack | null = lesson.media_type === 'audio' ? {

@@ -9,11 +9,13 @@ import PageSidebar from "@/components/page-sidebar";
 import AudioPlayerButton from "@/components/audio-player/audio-player-button";
 import { getLectureById } from "@/lib/services/lectures-service";
 import sheikh from "@/lib/data/sheikh";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export default async function LectureContent({ id }: { id: string }) {
   const lecture = await getLectureById(id);
   if (!lecture) {
-    return <div className="container mx-auto px-4 py-8 text-center">المحاضرة غير موجودة</div>;
+    notFound();
   }
 
   const audioTrack: AudioTrack = {

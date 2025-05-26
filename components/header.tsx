@@ -82,7 +82,7 @@ export default function Header() {
         </div>
       </div>
 
-      {isMenuOpen && (
+      {isMenuOpen && false && (
         <MobileMenu user={user} pathname={pathname} onSignOut={logout} />
       )}
 

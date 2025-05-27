@@ -11,6 +11,8 @@ declare global {
       widgets: {
         load: (element?: HTMLElement) => void;
       };
+      ready: (callback: Function) => void;
+      _e: Function[];
     };
   }
 }
@@ -19,22 +21,35 @@ export default function TwitterFeed({ username = sheikh.twitter }: { username?: 
   const twitterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    script.charset = "utf-8";
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      if (twitterRef.current) {
-        if (window.twttr) {
-          window.twttr.widgets.load(twitterRef.current);
-        }
-      }
+    // Use the recommended Twitter widget initialization pattern
+    window.twttr = window.twttr || {};
+    window.twttr._e = window.twttr._e || [];
+    
+    if (!document.getElementById("twitter-wjs")) {
+      const script = document.createElement("script");
+      script.id = "twitter-wjs";
+      script.src = "https://platform.twitter.com/widgets.js";
+      script.async = true;
+      script.charset = "utf-8";
+      document.head.appendChild(script);
+    }
+    
+    // Queue the widget load function
+    window.twttr.ready = window.twttr.ready || function(f: Function) {
+      window.twttr._e.push(f);
     };
-
+    
+    window.twttr.ready(() => {
+      if (twitterRef.current && window.twttr?.widgets) {
+        window.twttr.widgets.load(twitterRef.current);
+      }
+    });
+    
     return () => {
-      document.body.removeChild(script);
+      const script = document.getElementById("twitter-wjs");
+      if (script) {
+        script.remove();
+      }
     };
   }, [username]);
 
@@ -50,7 +65,7 @@ export default function TwitterFeed({ username = sheikh.twitter }: { username?: 
             data-lang="ar"
             data-height="350"
             data-theme="light"
-            href={`https://twitter.com/${username}`}
+            href={`https://x.com/${username}`}
           >
             تغريدات من {sheikh.name}
           </Link>

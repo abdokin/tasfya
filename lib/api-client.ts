@@ -46,7 +46,7 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
     method = 'GET',
     headers = {},
     body,
-    cache = "no-store",
+    cache = "default",
     params = {},
     skipApiToken = false,
   } = options;

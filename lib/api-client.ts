@@ -47,7 +47,7 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
     headers = {},
     body,
     cache = 'default',
-    params,
+    params = {},
     skipApiToken = false,
   } = options;
 
@@ -57,9 +57,10 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
     ...headers,
   };
 
-  // Add API token to headers if available and not explicitly skipped
+  // Add API token as query param if available and not explicitly skipped
+  const fullParams = { ...params };
   if (API_TOKEN && !skipApiToken) {
-    requestHeaders['X-API-Token'] = API_TOKEN;
+    fullParams['api_token'] = API_TOKEN;
   }
 
   const requestOptions: RequestInit = {
@@ -72,7 +73,7 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
     requestOptions.body = JSON.stringify(body);
   }
 
-  const url = buildUrlWithParams(endpoint, params);
+  const url = buildUrlWithParams(endpoint, fullParams);
 
   try {
     const response = await fetch(url, requestOptions);
@@ -82,15 +83,14 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
       const data = await response.json();
 
       if (!response.ok) {
-        // Special handling for rate limit exceeded errors
         if (response.status === 429) {
           throw await createApiError(
-            data.error || 'Rate limit exceeded', 
-            response.status, 
-            { 
+            data.error || 'Rate limit exceeded',
+            response.status,
+            {
               resetAt: data.reset_at,
               limit: data.limit,
-              retryAfter: new Date(data.reset_at).getTime() - Date.now()
+              retryAfter: new Date(data.reset_at).getTime() - Date.now(),
             }
           );
         }
@@ -118,6 +118,7 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
     );
   }
 }
+
 
 // Helper methods for common HTTP methods
 export const api = {

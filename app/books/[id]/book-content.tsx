@@ -61,15 +61,6 @@ export default async function BookContent({ id }: { id: string }) {
               )}
             </div>
             <div className="mt-4 flex flex-col gap-3">
-              <div className="flex justify-center gap-2">
-                {book.file_url && (
-                  <Button variant="outline" size="icon" asChild>
-                    <Link href={resourceUrl(book.file_url)} target="_blank" download>
-                      <Download className="h-5 w-5" />
-                    </Link>
-                  </Button>
-                )}
-              </div>
               {book.file_url && (
                 <Button asChild>
                   <Link href={resourceUrl(book.file_url)} target="_blank" download>
@@ -99,28 +90,6 @@ export default async function BookContent({ id }: { id: string }) {
                 )}
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-6">
-                {book.pages && (
-                  <div className="flex items-center gap-2">
-                    <span className="bg-gray-100 p-1 rounded-full">
-                      <Calendar className="h-4 w-4" />
-                    </span>
-                    <span className="text-gray-700">
-                      <strong>عدد الصفحات:</strong> {book.pages}
-                    </span>
-                  </div>
-                )}
-                {book.category && (
-                  <div className="flex items-center gap-2">
-                    <span className="bg-gray-100 p-1 rounded-full">
-                      <Calendar className="h-4 w-4" />
-                    </span>
-                    <span className="text-gray-700">
-                      <strong>التصنيف:</strong> {book.category}
-                    </span>
-                  </div>
-                )}
-              </div>
               
               <h2 className="text-xl font-semibold mb-3">نبذة عن الكتاب</h2>
               <div className="prose max-w-none mb-6">

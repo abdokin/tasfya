@@ -5,15 +5,14 @@ import { formatDate } from "@/lib/utils";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PageSidebar from "@/components/page-sidebar";
 import { getFatwaById } from "@/lib/services/fatwas-service";
+import { notFound } from "next/navigation";
 
 export default async function FatwaPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-
   const fatwa = await getFatwaById(id);
-  
 
   if (!fatwa) {
-    return <div className="container mx-auto px-4 py-8">الفتوى غير موجودة</div>;
+    notFound();
   }
 
   return (
@@ -65,7 +64,7 @@ export default async function FatwaPage({ params }: { params: Promise<{ id: stri
                   )}
                 </div>
                 {fatwa.answer && (
-                  <div className="mt-4 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" 
+                  <div className="mt-4 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" 
                        dangerouslySetInnerHTML={{ __html: fatwa.answer.body }} />
                 )}
               </div>

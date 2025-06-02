@@ -8,12 +8,18 @@ import { Input } from "@/components/ui/input"
 import { Search, Book, FileText, Mic, Video, Gift } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { Badge } from "./ui/badge"
-
+import { getAllLessons } from "@/lib/services/lessons-service"
+import { format } from "path"
+import { formatDate } from "@/lib/utils"
+import { getAllBooks } from "@/lib/services/books-service"
+import { getAllFatwas } from "@/lib/services/fatwas-service"
+import { set } from "date-fns"
+type SearchType = 'lessons' | 'books' | 'fatwas' | 'sermons' | 'lectures' | 'benefits'
 type SearchResult = {
   id: string
   title: string
   description?: string
-  type: 'lesson' | 'book' | 'fatwa' | 'sermon' | 'lecture' | 'benefit'
+  type: SearchType
   category?: string
   date?: string
 }
@@ -25,8 +31,8 @@ export default function SearchModal({
   open: boolean
   onOpenChange: (open: boolean) => void 
 }) {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [activeTab, setActiveTab] = useState("all")
+  const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined)
+  const [activeTab, setActiveTab] = useState<SearchType>("lessons")
   const [results, setResults] = useState<SearchResult[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
@@ -34,75 +40,111 @@ export default function SearchModal({
   useEffect(() => {
     // Reset search when modal opens
     if (open) {
-      setSearchQuery("")
-      setResults([])
+      setSearchQuery(undefined)
+      setActiveTab('lessons')
     }
   }, [open])
 
   useEffect(() => {
-    // Simple debounce for search
-    const timeoutId = setTimeout(() => {
-      if (searchQuery.trim().length >= 2) {
-        performSearch()
-      }
+    const debounceTimeout = setTimeout(() => {
+      console.log(`Debounced search query: ${searchQuery}`)
+      
+      performSearch()
     }, 300)
-
-    return () => clearTimeout(timeoutId)
+    
+    return () => clearTimeout(debounceTimeout)
   }, [searchQuery, activeTab])
 
   const performSearch = async () => {
     // This would be replaced with actual API calls
     setIsLoading(true)
-    
-    // Mock search results
-    const mockResults: SearchResult[] = [
-      // Filter based on active tab
-      ...(activeTab === "all" || activeTab === "lessons" ? [
-        { id: "1", title: "شرح حديث الإيمان", description: "شرح مفصل لحديث جبريل في الإيمان", type: "lesson" as const, category: "العقيدة", date: "2025/04/15" },
-        { id: "2", title: "التعليق على صحيح البخاري", description: "درس من سلسلة التعليق على صحيح البخاري", type: "lesson" as const, category: "الحديث", date: "2025/04/10" }
-      ] : []),
-      ...(activeTab === "all" || activeTab === "books" ? [
-        { id: "1", title: "السبيل المحني للمسلم من الفتن", description: "توضيح في بيان السبيل الذي ينجي من الفتن", type: "book" as const, category: "العقيدة", date: "1437" },
-        { id: "2", title: "القول البين الأظهر", description: "القول البين الأظهر في الدعوة إلى الله والأمر بالمعروف والنهي عن المنكر", type: "book" as const, category: "الدعوة", date: "1437" }
-      ] : []),
-      ...(activeTab === "all" || activeTab === "fatwas" ? [
-        { id: "1", title: "حكمة خلق الله الكافر مع علمه سبحانه أنه من أهل النار", type: "fatwa" as const, category: "العقيدة", date: "2023/02/10" },
-        { id: "7", title: "حكم قراءة القرآن للحائض", type: "fatwa" as const, category: "الفقه", date: "2023/06/10" }
-      ] : []),
-      ...(activeTab === "all" || activeTab === "lectures" ? [
-        { id: "1", title: "أثر القرآن في تزكية النفوس", type: "lecture" as const, category: "التزكية", date: "2025/03/15" }
-      ] : []),
-      ...(activeTab === "all" || activeTab === "benefits" ? [
-        { id: "1", title: "فائدة في الحرص على قيام الليل", type: "benefit" as const, category: "العبادات", date: "2025/04/30" }
-      ] : [])
-    ].filter(item => 
-      item.title.includes(searchQuery) || 
-      (item.description && item.description.includes(searchQuery))
-    )
-    
-    // Simulate API delay
-    setTimeout(() => {
-      setResults(mockResults)
-      setIsLoading(false)
-    }, 500)
+    switch (activeTab) {
+      case 'lessons':
+        const response = await getAllLessons(1, searchQuery, '')
+        const lessons = response.lessons.map(lesson => ({
+          id: lesson.id,
+          title: lesson.title,
+          description: lesson.description,
+          type: 'lessons' as SearchType,
+          category: lesson.category,
+          date: formatDate(lesson.published_date)
+        }))
+        console.log('Search results:', lessons)
+        setResults(lessons)
+        break
+      case 'books':
+        const {books}= await getAllBooks(1, searchQuery, '')
+        const result = books.map(book => ({
+          id: book.id,
+          title: book.title,
+          description: book.description,
+          type: 'books' as SearchType,
+          category: book.category,
+          date: formatDate(book.published_date)
+        }))
+        console.log('Search results:', books)
+        setResults(result)
+        break
+      case 'fatwas':
+        const respose = await getAllFatwas(1, searchQuery, '')
+        const fatwas = respose.fatwas.map(fatwa => ({
+          id: fatwa.id,
+          title: fatwa.title,
+          type: 'fatwas' as SearchType,
+          category: fatwa.category,
+          date: formatDate(fatwa.published_date)
+        }))
+        console.log('Search results:', fatwas)
+        setResults(fatwas)
+        break
+      case 'lectures':
+        const lectures = await getAllLessons(1, searchQuery, 'lectures')
+        const lectureResults = lectures.lessons.map(lecture => ({
+          id: lecture.id,
+          title: lecture.title,
+          description: lecture.description,
+          type: 'lectures' as SearchType,
+          category: lecture.category,
+          date: formatDate(lecture.published_date)
+        }))
+        console.log('Search results:', lectureResults)
+        setResults(lectureResults)
+        break
+      case 'benefits':
+        const benefits = await getAllLessons(1, searchQuery, 'benefits')
+        const benefitResults = benefits.lessons.map(benefit => ({
+          id: benefit.id,
+          title: benefit.title,
+          description: benefit.description,
+          type: 'benefits' as SearchType,
+          category: benefit.category,
+          date: formatDate(benefit.published_date)
+        }))
+        console.log('Search results:', benefitResults)
+        setResults(benefitResults)
+        break
+      default:
+        setResults([])
+    }
+    setIsLoading(false)
   }
 
   const handleResultClick = (result: SearchResult) => {
     // Navigate to the appropriate page based on result type
     switch (result.type) {
-      case 'lesson':
+      case 'lessons':
         router.push(`/lessons/${result.id}`)
         break
-      case 'book':
+      case 'books':
         router.push(`/books/${result.id}`)
         break
-      case 'fatwa':
+      case 'fatwas':
         router.push(`/fatwas/${result.id}`)
         break
-      case 'lecture':
+      case 'lectures':
         router.push(`/lectures/${result.id}`)
         break
-      case 'benefit':
+      case 'benefits':
         router.push(`/benefits/${result.id}`)
         break
     }
@@ -147,9 +189,12 @@ export default function SearchModal({
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
         </div>
         
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-4">
-          <TabsList className="w-full flex justify-between">
-            <TabsTrigger value="all" className="flex-1">الكل</TabsTrigger>
+        <Tabs value={activeTab} defaultValue="lessons" onValueChange={(value) => {
+          setActiveTab(value as SearchType)
+          console.log(`Active tab changed to: ${value}`);
+          
+        }} className="w-full mt-4">
+          <TabsList className="w-full flex justify-between" dir="rtl">
             <TabsTrigger value="lessons" className="flex-1">الدروس</TabsTrigger>
             <TabsTrigger value="books" className="flex-1">الكتب</TabsTrigger>
             <TabsTrigger value="fatwas" className="flex-1">الفتاوى</TabsTrigger>
@@ -163,7 +208,7 @@ export default function SearchModal({
               <div className="flex justify-center items-center py-10">
                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
               </div>
-            ) : searchQuery.length < 2 ? (
+            ) : searchQuery && searchQuery.length < 2 ? (
               <div className="text-center text-gray-500 py-10">
                 اكتب كلمة للبحث (على الأقل حرفين)
               </div>
@@ -184,22 +229,22 @@ export default function SearchModal({
                         <div className="flex items-center gap-2 mb-1">
                           <Badge 
                             className={`
-                              ${result.type === 'lesson' ? 'bg-blue-100 text-blue-800 hover:bg-blue-100' : ''} 
-                              ${result.type === 'book' ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-100' : ''}
-                              ${result.type === 'fatwa' ? 'bg-amber-100 text-amber-800 hover:bg-amber-100' : ''}
-                              ${result.type === 'sermon' ? 'bg-purple-100 text-purple-800 hover:bg-purple-100' : ''}
-                              ${result.type === 'lecture' ? 'bg-red-100 text-red-800 hover:bg-red-100' : ''}
-                              ${result.type === 'benefit' ? 'bg-teal-100 text-teal-800 hover:bg-teal-100' : ''}
+                              ${result.type === 'lessons' ? 'bg-blue-100 text-blue-800 hover:bg-blue-100' : ''} 
+                              ${result.type === 'books' ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-100' : ''}
+                              ${result.type === 'fatwas' ? 'bg-amber-100 text-amber-800 hover:bg-amber-100' : ''}
+                              ${result.type === 'sermons' ? 'bg-purple-100 text-purple-800 hover:bg-purple-100' : ''}
+                              ${result.type === 'lectures' ? 'bg-red-100 text-red-800 hover:bg-red-100' : ''}
+                              ${result.type === 'benefits' ? 'bg-teal-100 text-teal-800 hover:bg-teal-100' : ''}
                             `}
                           >
                             <span className="flex items-center gap-1">
                               {getIconForType(result.type)}
-                              {result.type === 'lesson' && 'درس'}
-                              {result.type === 'book' && 'كتاب'}
-                              {result.type === 'fatwa' && 'فتوى'}
-                              {result.type === 'sermon' && 'خطبة'}
-                              {result.type === 'lecture' && 'محاضرة'}
-                              {result.type === 'benefit' && 'فائدة'}
+                              {result.type === 'lessons' && 'درس'}
+                              {result.type === 'books' && 'كتاب'}
+                              {result.type === 'fatwas' && 'فتوى'}
+                              {result.type === 'sermons' && 'خطبة'}
+                              {result.type === 'lectures' && 'محاضرة'}
+                              {result.type === 'benefits' && 'فائدة'}
                             </span>
                           </Badge>
                           {result.category && (

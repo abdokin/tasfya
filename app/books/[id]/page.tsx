@@ -56,7 +56,7 @@ function BookJsonLdWrapper({ id }: { id: string }) {
       <BookJsonLd
         title={bookData.title}
         author={bookData.author?.first_name + ' ' + bookData.author?.last_name || "الشيخ محمد بن رمزان الهاجري"}
-        datePublished={bookData.published_date.toISOString() || new Date().toISOString()}
+        datePublished={new Date().toISOString()}
         description={bookData.description || `كتاب ${bookData.title} من مؤلفات فضيلة الشيخ محمد بن رمزان الهاجري`}
         url={`${process.env.NEXT_PUBLIC_SITE_URL}/books/${bookData.id}`}
         imageUrl={bookData.cover_image_url ? resourceUrl(bookData.cover_image_url) : undefined}

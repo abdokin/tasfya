@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Newsletter Subscription */}
-          <div>
+          {/* <div>
             <h3 className="text-xl font-semibold mb-4 text-white">اشترك بالقائمة البريدية</h3>
             <p className="text-gray-400 mb-4">
               اشترك بالقائمة البريدية للشيخ ليصلك جديد الشيخ من المحاضرات والدروس والمواعيد
@@ -23,7 +23,7 @@ export default function Footer() {
               />
               <Button variant={'outline'}>اشتراك</Button>
             </div>
-          </div>
+          </div> */}
 
           {/* Follow Sheikh */}
           <div>

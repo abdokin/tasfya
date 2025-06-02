@@ -41,20 +41,20 @@ export default function AudioPlayer({
   const [playbackSpeed, setPlaybackSpeed] = useState(1)
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
-  
+
   // Refs
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  
+
   // Setup audio element when component mounts
   useEffect(() => {
     const audio = new Audio(track?.audioUrl || "")
     audioRef.current = audio
-    
+
     // Set initial audio properties
     audio.volume = volume
     audio.loop = isRepeat
-    
+
     // Setup event listeners
     audio.addEventListener("loadedmetadata", () => {
       setDuration(audio.duration)
@@ -62,17 +62,17 @@ export default function AudioPlayer({
         handlePlay()
       }
     })
-    
+
     audio.addEventListener("timeupdate", () => {
       setCurrentTime(audio.currentTime)
     })
-    
+
     audio.addEventListener("ended", () => {
       if (!isRepeat) {
         setIsPlaying(false)
       }
     })
-    
+
     // Cleanup on unmount
     return () => {
       clearInterval(intervalRef.current as NodeJS.Timeout)
@@ -82,53 +82,53 @@ export default function AudioPlayer({
       audioRef.current = null
     }
   }, [track, autoplay])
-  
+
   // Update audio properties when state changes
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
-    
+
     audio.volume = isMuted ? 0 : volume
   }, [volume, isMuted])
-  
+
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
-    
+
     audio.playbackRate = playbackSpeed
   }, [playbackSpeed])
-  
+
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
-    
+
     audio.loop = isRepeat
   }, [isRepeat])
-  
+
   // Progress tracking interval for lesson progress
   useEffect(() => {
     if (isPlaying && track?.type === "lesson") {
       intervalRef.current = setInterval(() => {
         const audio = audioRef.current
         if (!audio) return
-        
+
         const progress = Math.round((audio.currentTime / audio.duration) * 100)
         // TODO: Update lesson progress in the database
       }, 1000)
     }
-    
+
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
       }
     }
   }, [isPlaying, track, isBookmarked])
-  
+
   // Handle play/pause safely
   const handlePlay = () => {
     const audio = audioRef.current
     if (!audio) return
-    
+
     audio.play()
       .then(() => {
         setIsPlaying(true)
@@ -137,15 +137,15 @@ export default function AudioPlayer({
         console.error("Playback failed:", error)
       })
   }
-  
+
   const handlePause = () => {
     const audio = audioRef.current
     if (!audio) return
-    
+
     audio.pause()
     setIsPlaying(false)
   }
-  
+
   const togglePlay = () => {
     if (isPlaying) {
       handlePause()
@@ -153,61 +153,61 @@ export default function AudioPlayer({
       handlePlay()
     }
   }
-  
+
   const toggleMute = () => {
     setIsMuted(!isMuted)
   }
-  
+
   const toggleRepeat = () => {
     setIsRepeat(!isRepeat)
   }
-  
+
   const toggleMinimize = () => {
     setIsMinimized(!isMinimized)
   }
-  
+
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked)
-    
+
     if (track?.type === "lesson") {
       // throw new Error(`Bookmark toggled for lesson: ${track.title}`)
       // TODO: Handle bookmarking logic
     }
   }
-  
+
   const handleSeek = (value: number[]) => {
     const audio = audioRef.current
     if (!audio) return
-    
+
     const newTime = value[0]
     audio.currentTime = newTime
     setCurrentTime(newTime)
   }
-  
+
   const handleVolumeChange = (value: number[]) => {
     const newVolume = value[0]
     setVolume(newVolume)
-    
+
     if (newVolume > 0 && isMuted) {
       setIsMuted(false)
     }
   }
-  
+
   const handleClose = () => {
     // Pause audio before closing
     const audio = audioRef.current
     if (audio) {
       audio.pause()
     }
-    
+
     // Call the onClose callback if provided
     if (onClose) {
       onClose()
     }
   }
-  
+
   if (!track) return null
-  
+
   // Minimized player view
   if (isMinimized) {
     return (
@@ -222,11 +222,11 @@ export default function AudioPlayer({
                 className="object-cover"
               />
             </div>
-            
+
             <div className="flex-1 min-w-0 max-w-[140px] mx-2">
               <h4 className="text-xs font-medium truncate">{track.title}</h4>
             </div>
-            
+
             <Button
               variant="ghost"
               size="icon"
@@ -235,7 +235,7 @@ export default function AudioPlayer({
             >
               {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
             </Button>
-            
+
             <Button
               variant="ghost"
               size="icon"
@@ -244,7 +244,7 @@ export default function AudioPlayer({
             >
               <Maximize2 className="h-4 w-4" />
             </Button>
-            
+
             <Button
               variant="ghost"
               size="icon"
@@ -254,23 +254,23 @@ export default function AudioPlayer({
               <X className="h-4 w-4" />
             </Button>
           </div>
-          
+
           {/* Progress bar for minimized view */}
-          <div className="flex items-center space-x-2 gap-1 px-1">
-            <span className="text-[10px] text-gray-500 w-6 text-right">{formatTime(currentTime)}</span>
+          <div className="flex  items-center space-x-2 gap-1 px-1">
+            <span className="text-[10px] text-gray-500 w-6">{formatTime(duration)}</span>
             <div className="relative flex-1 h-1 bg-gray-200 rounded-full">
-              <div 
-                className="absolute h-full  rounded-full" 
+              <div
+                className="absolute h-full  rounded-full"
                 style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
               />
             </div>
-            <span className="text-[10px] text-gray-500 w-6">{formatTime(duration)}</span>
+            <span className="text-[10px] text-gray-500 w-6 text-right">{formatTime(currentTime)}</span>
           </div>
         </div>
       </div>
     )
   }
-  
+
   // Full player view
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
@@ -354,7 +354,7 @@ export default function AudioPlayer({
             </div>
 
             <AudioSpeedControl speed={playbackSpeed} onSpeedChange={setPlaybackSpeed} />
-            
+
             <Button
               variant="ghost"
               size="icon"
@@ -365,9 +365,9 @@ export default function AudioPlayer({
               <Minimize2 className="h-4 w-4" />
             </Button>
 
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="h-8 w-8 text-gray-500"
               onClick={handleClose}
               title="Close player"

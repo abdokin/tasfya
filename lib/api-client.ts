@@ -3,6 +3,7 @@
  */
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ? (process.env.NEXT_PUBLIC_API_URL + "/api") : 'http://localhost:3000/api';
+export const API_TOKEN = process.env.API_TOKEN || '';
 
 export type RequestOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -11,6 +12,7 @@ export type RequestOptions = {
   cache?: RequestCache;
   requiresAuth?: boolean;
   params?: Record<string, string | number | boolean | undefined>;
+  skipApiToken?: boolean;
 };
 
 type ApiErrorType = {
@@ -46,6 +48,7 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
     body,
     cache = 'default',
     params,
+    skipApiToken = false,
   } = options;
 
   const requestHeaders: Record<string, string> = {
@@ -54,7 +57,10 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
     ...headers,
   };
 
-  // Optional: Add auth token here
+  // Add API token to headers if available and not explicitly skipped
+  if (API_TOKEN && !skipApiToken) {
+    requestHeaders['X-API-Token'] = API_TOKEN;
+  }
 
   const requestOptions: RequestInit = {
     method,
@@ -76,6 +82,18 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
       const data = await response.json();
 
       if (!response.ok) {
+        // Special handling for rate limit exceeded errors
+        if (response.status === 429) {
+          throw await createApiError(
+            data.error || 'Rate limit exceeded', 
+            response.status, 
+            { 
+              resetAt: data.reset_at,
+              limit: data.limit,
+              retryAfter: new Date(data.reset_at).getTime() - Date.now()
+            }
+          );
+        }
         throw await createApiError(data.error || 'Request failed', response.status, data);
       }
 

@@ -13,23 +13,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SeriesPage({ searchParams }: {
-  searchParams: {
+export default async function SeriesPage({ searchParams }: {
+  searchParams: Promise<{
     query?: string;
     lessons_page?: string;
     series_page?: string;
     category?: string;
     sort?: string;
-  };
+  }>;
 }) {
+  const params = await searchParams;
   return (
     <Suspense fallback={<SeriesSkeleton />}>
       <SeriesContent
-        query={searchParams.query}
-        lessons_page={searchParams.lessons_page}
-        series_page={searchParams.series_page}
-        category={searchParams.category}
-        sort={searchParams.sort}
+        query={params.query}
+        lessons_page={params.lessons_page}
+        series_page={params.series_page}
+        category={params.category}
+        sort={params.sort}
       />
     </Suspense>
   );

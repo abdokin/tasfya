@@ -46,7 +46,7 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
     method = 'GET',
     headers = {},
     body,
-    cache = 'default',
+    cache = "no-store",
     params = {},
     skipApiToken = false,
   } = options;
@@ -72,7 +72,6 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
   if (body) {
     requestOptions.body = JSON.stringify(body);
   }
-
   const url = buildUrlWithParams(endpoint, fullParams);
 
   try {

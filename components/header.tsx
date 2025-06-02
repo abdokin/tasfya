@@ -61,14 +61,14 @@ export default function Header() {
 
           <UserMenu user={user} onSignOut={logout} />
 
-          <Button
+          {/* <Button
             variant="ghost"
             size="sm"
             className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <Menu className="h-6 w-6" />
-          </Button>
+          </Button> */}
         </div>
 
         <div className="mt-3 md:hidden">

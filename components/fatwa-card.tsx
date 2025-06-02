@@ -93,12 +93,12 @@ export const FatwaCard = ({ fatwa }: { fatwa: Fatwa }) => {
               </div>
             </div>
             <div className="flex space-x-2 space-x-reverse">
-              <Button variant="ghost" size="sm">
+              {/* <Button variant="ghost" size="sm">
                 <BookmarkPlus className="h-4 w-4" />
               </Button>
               <Button variant="ghost" size="sm">
                 <Share2 className="h-4 w-4" />
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

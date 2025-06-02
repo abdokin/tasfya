@@ -45,14 +45,6 @@ export default async function FatwasContent({
           <div className="w-full lg:w-3/4">
             <div className="mb-6">
               <h1 className="text-3xl font-bold mb-4">الفتاوى</h1>
-              <div className="mb-4 flex flex-wrap gap-2">
-                <Button size="sm" variant="outline" className="rounded-full">الجميع</Button>
-                <Button size="sm" variant="outline" className="rounded-full">العقيدة</Button>
-                <Button size="sm" variant="outline" className="rounded-full">الفقه</Button>
-                <Button size="sm" variant="outline" className="rounded-full">العبادات</Button>
-                <Button size="sm" variant="outline" className="rounded-full">المعاملات</Button>
-                <Button size="sm" variant="outline" className="rounded-full">الأسرة</Button>
-              </div>
               <SearchBar placeholder="ابحث عن سؤال..." />
             </div>
 

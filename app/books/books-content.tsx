@@ -47,17 +47,6 @@ export default async function BooksContent({
           <div className="w-full lg:w-3/4">
             <div className="mb-6">
               <h1 className="text-3xl font-bold mb-4">الكتب والمؤلفات</h1>
-              <div className="flex flex-wrap gap-4 mb-4">
-                <Button variant="outline" size="sm" className="gap-2">
-                  <Filter className="h-4 w-4" />
-                  تصفية
-                </Button>
-                <Button variant="outline" size="sm" className="gap-2">
-                  <ArrowUpDown className="h-4 w-4" />
-                  ترتيب
-                </Button>
-              </div>
-
               <SearchBar placeholder="ابحث عن الكتب..." />
             </div>
 

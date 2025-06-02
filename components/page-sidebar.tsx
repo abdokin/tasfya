@@ -68,10 +68,12 @@ export default async function PageSidebar() {
                     <h4 className="font-medium text-sm mb-1 line-clamp-1">
                       {book.title}
                     </h4>
-                    <div className="flex items-center text-xs text-gray-500 mb-2 gap-1">
-                      <Download className="h-3 w-3" />
-                      <span>{book.downloads} تحميل</span>
-                    </div>
+                    {false && (
+                      <div className="flex items-center text-xs text-gray-500 mb-2 gap-1">
+                        <Download className="h-3 w-3" />
+                        <span>{book.downloads} تحميل</span>
+                      </div>
+                    )}
                     <Link href={resourceUrl(book.file_url)} download target="_blank">
                       <Button variant="outline">
                         <Download className="h-3 w-3" />

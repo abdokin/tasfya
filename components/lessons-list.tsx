@@ -34,16 +34,19 @@ function LessonCard({ lesson }: { lesson: Lesson }) {
       className="overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
     >
       <CardContent className="p-4">
-        <div className="flex flex-col md:flex-row md:items-center gap-4">
-          <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full border text-primary">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          {/* Icon */}
+          <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border text-primary mx-auto sm:mx-0">
             {lesson.media_type === 'video' ? (
-              <Video className="h-6 w-6" />
+              <Video className="h-5 w-5 sm:h-6 sm:w-6" />
             ) : (
-              <FileText className="h-6 w-6" />
+              <FileText className="h-5 w-5 sm:h-6 sm:w-6" />
             )}
           </div>
-          <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-2 mb-1">
+
+          {/* Text and Info */}
+          <div className="flex-1 text-center sm:text-start">
+            <div className="flex flex-wrap justify-center sm:justify-start items-center gap-2 mb-2">
               <span className="text-xs text-gray-500">{formatDate(lesson.published_date)}</span>
               <Badge>{lesson.media_type === 'video' ? 'فيديو' : 'صوت'}</Badge>
               {lesson.series_id && (
@@ -54,9 +57,11 @@ function LessonCard({ lesson }: { lesson: Lesson }) {
                 </Link>
               )}
             </div>
-            <h3 className="text-lg font-medium">{lesson.title}</h3>
+            <h3 className="text-base sm:text-lg font-medium">{lesson.title}</h3>
           </div>
-          <div className="flex flex-wrap items-center gap-2 mt-3 md:mt-0">
+
+          {/* Buttons */}
+          <div className="flex flex-wrap justify-center sm:justify-end gap-2 mt-2 sm:mt-0">
             <Button
               variant="outline"
               size="sm"
@@ -85,6 +90,7 @@ function LessonCard({ lesson }: { lesson: Lesson }) {
         </div>
       </CardContent>
     </Card>
+
   )
 }
 

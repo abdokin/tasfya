@@ -216,7 +216,7 @@ export default function AudioPlayer({
           <div className="flex items-center mb-1">
             <div className="relative h-8 w-8 rounded overflow-hidden mr-2">
               <Image
-                src={track.thumbnailUrl || "/placeholder.svg?height=32&width=32"}
+                src={"/speech.jpg?height=32&width=32"}
                 alt={track.title}
                 fill
                 className="object-cover"

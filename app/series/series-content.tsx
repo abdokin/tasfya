@@ -72,7 +72,6 @@ export default async function SeriesContent({
                   <div className="mt-6 flex justify-center">
                     <Pagination
                       totalPages={seriesMeta.total_pages}
-                      resourceType="series"
                     />
                   </div>
                 )}

@@ -67,10 +67,11 @@ export default async function LessonContent({ id }: { id: string }) {
                 ) : lesson.media_type === 'video' && lesson.video_url ? (
                   <div className="w-full h-full aspect-video">
                     <iframe
-                      className="w-full h-full rounded-md"
-                      src={lesson.video_url.replace("watch?v=", "embed/")}
+                      className="w-full h-full rounded-md border-0"
+                      src={lesson.video_url.includes('youtube.com/watch?v=') 
+                        ? lesson.video_url.replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                        : lesson.video_url.replace("watch?v=", "embed/")}
                       title={lesson.title}
-                      frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />

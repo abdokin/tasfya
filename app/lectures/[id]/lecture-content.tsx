@@ -109,7 +109,7 @@ export default async function LectureContent({ id }: { id: string }) {
                 <p className="text-gray-700 leading-relaxed">{lecture.description}</p>
                 {lecture.content && (
                   <div className="mt-4 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
-                    dangerouslySetInnerHTML={{ __html: lecture.content }} />
+                    dangerouslySetInnerHTML={{ __html: lecture.content.body }} />
                 )}
               </div>
 

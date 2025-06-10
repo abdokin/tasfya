@@ -19,15 +19,12 @@ interface SeriesContentProps {
 
 export default async function SeriesContent({
   query = '',
-  lessons_page = '1',
   series_page = '1',
   category = '',
   sort = 'created_at'
 }: SeriesContentProps) {
-  const lessonsPage = Number(lessons_page) || 1;
   const seriesPage = Number(series_page) || 1;
   
-  const { meta, lessons } = await getAllLessons(lessonsPage, query, category);
   const { meta: seriesMeta, series } = await getAllSeries(seriesPage, query, category);
   
   return (
@@ -56,15 +53,15 @@ export default async function SeriesContent({
             <Card className="mb-8">
               <CardContent className="p-6">
                 <h2 className="text-2xl font-semibold mb-6">أحدث الدروس</h2>
-                <LessonsList lessons={lessons} />
-                {meta.total_pages > 1 && (
+                {/* <LessonsList lessons={lessons} /> */}
+                {/* {meta.total_pages > 1 && (
                   <div className="mt-6 flex justify-center">
                     <Pagination
                       totalPages={meta.total_pages}
                       resourceType="series"
                     />
                   </div>
-                )}
+                )} */}
               </CardContent>
             </Card>
 

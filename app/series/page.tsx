@@ -16,8 +16,7 @@ export const metadata: Metadata = {
 export default async function SeriesPage({ searchParams }: {
   searchParams: Promise<{
     query?: string;
-    lessons_page?: string;
-    series_page?: string;
+    page?: string;
     category?: string;
     sort?: string;
   }>;
@@ -27,8 +26,7 @@ export default async function SeriesPage({ searchParams }: {
     <Suspense fallback={<SeriesSkeleton />}>
       <SeriesContent
         query={params.query}
-        lessons_page={params.lessons_page}
-        series_page={params.series_page}
+        page={params.page}
         category={params.category}
         sort={params.sort}
       />

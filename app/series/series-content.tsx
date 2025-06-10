@@ -11,22 +11,21 @@ import Pagination from "@/components/pagination";
 
 interface SeriesContentProps {
   query?: string;
-  lessons_page?: string;
-  series_page?: string;
+  page?: string;
   category?: string;
   sort?: string;
 }
 
 export default async function SeriesContent({
   query = '',
-  series_page = '1',
+  page = '1',
   category = '',
   sort = 'created_at'
 }: SeriesContentProps) {
-  const seriesPage = Number(series_page) || 1;
-  
+  const seriesPage = Number(page) || 1;
+
   const { meta: seriesMeta, series } = await getAllSeries(seriesPage, query, category);
-  
+
   return (
     <div className="bg-gray-50 min-h-screen py-8">
       <div className="container mx-auto px-4">
@@ -47,23 +46,23 @@ export default async function SeriesContent({
           <div className="w-full lg:w-3/4">
             <div className="mb-6">
               <h1 className="text-3xl font-bold mb-4">المكتبة العلمية</h1>
-              <SearchBar placeholder="ابحث في المكتبة العلمية..." />
+              <SearchBar placeholder="ابحث في المكتبة العلمية..." categories={seriesMeta.categories} />
             </div>
 
-            <Card className="mb-8">
+            {/* <Card className="mb-8">
               <CardContent className="p-6">
                 <h2 className="text-2xl font-semibold mb-6">أحدث الدروس</h2>
-                {/* <LessonsList lessons={lessons} /> */}
-                {/* {meta.total_pages > 1 && (
+                <LessonsList lessons={lessons} />
+                {meta.total_pages > 1 && (
                   <div className="mt-6 flex justify-center">
                     <Pagination
                       totalPages={meta.total_pages}
                       resourceType="series"
                     />
                   </div>
-                )} */}
+                )}
               </CardContent>
-            </Card>
+            </Card> */}
 
             <Card>
               <CardContent className="p-6">

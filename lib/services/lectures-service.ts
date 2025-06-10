@@ -10,9 +10,11 @@ export type Lecture = {
   duration: number;
   views: number;
   thumbnail_url: string;
-  audio_url: string;
+  audio_url?: string;
   published_date: string;
   content: RichText;
+  video_url?: string;
+  media_type: 'audio' | 'video';
 }
 
 export type RichText = {

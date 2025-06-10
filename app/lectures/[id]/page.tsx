@@ -47,7 +47,7 @@ export default function LecturePage({ params }: { params: { id: string } }) {
 }
 
 // Separate component for JSON-LD to avoid issues with suspense
-function LectureJsonLdWrapper({ id }: { id: string }) {
+async function LectureJsonLdWrapper({ id }: { id: string }) {
   const lecture = getLectureById(id);
   // Using Promise to handle async data
   return lecture.then(lectureData => {

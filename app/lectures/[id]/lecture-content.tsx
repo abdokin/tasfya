@@ -10,7 +10,6 @@ import AudioPlayerButton from "@/components/audio-player/audio-player-button";
 import { getLectureById } from "@/lib/services/lectures-service";
 import sheikh from "@/lib/data/sheikh";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 
 export default async function LectureContent({ id }: { id: string }) {
   const lecture = await getLectureById(id);
@@ -18,7 +17,7 @@ export default async function LectureContent({ id }: { id: string }) {
     notFound();
   }
 
-  const audioTrack: AudioTrack = {
+  const audioTrack: AudioTrack | null =lecture.audio_url ? {
     id: Number(lecture.id),
     title: lecture.title,
     artist: sheikh.name,
@@ -26,8 +25,8 @@ export default async function LectureContent({ id }: { id: string }) {
     duration: lecture.duration,
     thumbnailUrl: resourceUrl(lecture.thumbnail_url),
     type: "lecture"
-  };
-  
+  }: null;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
@@ -59,7 +58,21 @@ export default async function LectureContent({ id }: { id: string }) {
                 className="object-cover opacity-70"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <AudioPlayerButton track={audioTrack} />
+                {lecture.media_type === 'audio' && audioTrack ? (
+                  <AudioPlayerButton track={audioTrack} />
+                ) : lecture.media_type === 'video' && lecture.video_url ? (
+                  <div className="w-full h-full aspect-video">
+                    <iframe
+                      className="w-full h-full rounded-md border-0"
+                      src={lecture.video_url.includes('youtube.com/watch?v=')
+                        ? lecture.video_url.replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                        : lecture.video_url.replace("watch?v=", "embed/")}
+                      title={lecture.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : null}
               </div>
             </div>
 

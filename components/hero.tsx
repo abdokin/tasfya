@@ -25,10 +25,10 @@ export default function Hero({ lesson }: { lesson: Lesson }) {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={"/speech.jpg"}
+          src={"/background.jpg"}
           alt="Hero background"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-black/20"></div>

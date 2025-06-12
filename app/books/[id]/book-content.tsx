@@ -83,11 +83,11 @@ export default async function BookContent({ id }: { id: string }) {
                     <strong>المؤلف:</strong> {book.author.first_name} {book.author.last_name}
                   </span>
                 )}
-                {book.year && (
+                {/* {book.year && (
                   <span className="text-gray-700">
                     <strong>تاريخ النشر:</strong> {book.year}
                   </span>
-                )}
+                )} */}
               </div>
               
               

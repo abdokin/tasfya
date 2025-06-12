@@ -56,7 +56,7 @@ export default async function LessonContent({ id }: { id: string }) {
           <Card className="overflow-hidden border-0 shadow-md">
             <div className="relative h-48 md:h-64 bg-gray-900">
               <Image
-                src={"/speech.jpg"}
+                src={"/background.jpg"}
                 alt={lesson.title}
                 fill
                 className="object-cover opacity-70"
@@ -97,10 +97,10 @@ export default async function LessonContent({ id }: { id: string }) {
                   <Calendar className="h-4 w-4 ml-1" />
                   <span>{formatDate(lesson.published_date)}</span>
                 </div>
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <Clock className="h-4 w-4 ml-1" />
                   <span>{formatDuration(lesson.duration || 0)}</span>
-                </div>
+                </div> */}
               </div>
 
               <div className="prose max-w-none">

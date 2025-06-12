@@ -6,14 +6,12 @@ import SeriesContent from "./series-content";
 import SeriesJsonLd from "@/components/json-ld/series-json-ld";
 
 type Props = {
-  params: { id: string }
+  params: Promise<{ id: string }>
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // Get the series data
-  const series = await getSeriesById(params.id);
-  
-  // If no series is found, return default metadata
+  const { id } = await params;
+  const series = await getSeriesById(id);
   if (!series) {
     return {
       title: "السلسلة غير موجودة | موقع فضيلة الشيخ محمد بن رمزان الهاجري",
@@ -43,11 +41,9 @@ export default function SeriesPage({ params }: { params: { id: string } }) {
   );
 }
 
-// Separate component for JSON-LD to avoid issues with suspense
 function SeriesJsonLdWrapper({ id }: { id: string }) {
   const series = getSeriesById(id);
   
-  // Using Promise to handle async data
   series.then(data => {
     if (!data || !data.lessons || data.lessons.length === 0) return null;
     

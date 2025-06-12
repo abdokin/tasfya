@@ -47,7 +47,7 @@ export default async function LecturesContent({
           <div className="w-full lg:w-3/4">
             <div className="mb-6">
               <h1 className="text-3xl font-bold mb-4">المحاضرات</h1>
-              <SearchBar placeholder="ابحث في المحاضرات..." />
+              <SearchBar placeholder="ابحث في المحاضرات..." categories={meta.categories} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

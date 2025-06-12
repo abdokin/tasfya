@@ -3,17 +3,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
     Calendar,
-    Clock,
-    Eye,
-    Volume2,
     Play,
-    Share2,
-    BookmarkPlus,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { formatDate, resourceUrl } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { Lecture } from "@/lib/services/lectures-service";
 import { useAudioPlayer } from "@/context/AudioPlayerContext";
 import { AudioTrack } from "@/types"
@@ -21,7 +14,7 @@ import sheikh from "@/lib/data/sheikh";
 
 export const LectureCard = ({ lecture }: { lecture: Lecture }) => {
     const player = useAudioPlayer();
-    const track: AudioTrack = {
+    const track: AudioTrack | null = lecture.audio_url ? {
         id: 0,
         title: lecture.title,
         audioUrl: resourceUrl(lecture.audio_url),
@@ -29,7 +22,7 @@ export const LectureCard = ({ lecture }: { lecture: Lecture }) => {
         duration: lecture.duration,
         type: "lecture",
         artist: sheikh.name,
-    }
+    } : null;
     return (
         <Card className="border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
             <CardContent className="p-0">
@@ -49,14 +42,19 @@ export const LectureCard = ({ lecture }: { lecture: Lecture }) => {
                         {lecture.description}
                     </p>
                     <div className="flex items-center gap-4">
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => player.setTrack(track)}
-                        >
-                            <Play className="size-4" />
-                            <span>استماع</span>
-                        </Button>
+                        {lecture.media_type === 'audio' && track && (
+                            <Button variant="outline" size="sm" onClick={() => player.setTrack(track)}>
+                                <Play className="size-4" />
+                                <span>استماع</span>
+                            </Button>
+                        )}
+
+                        {lecture.video_url && (
+                            <Link href={`/lectures/${lecture.id}/video`} className="flex items-center gap-2 text-blue-600 hover:underline">
+                                <Play className="size-4" />
+                                <span>مشاهدة الفيديو</span>
+                            </Link>
+                        )}
                     </div>
                 </div>
             </CardContent>

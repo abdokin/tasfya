@@ -8,14 +8,13 @@ import { formatDate, formatDuration, resourceUrl } from "@/lib/utils";
 import sheikh from "@/lib/data/sheikh";
 
 type Props = {
-  params: { id: string }
+  params: Promise<{ id: string }>
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // Get the lesson data
-  const lesson = await getLessonById(params.id);
+  const { id } = await params;
+  const lesson = await getLessonById(id);
   
-  // If no lesson is found, return default metadata
   if (!lesson) {
     return {
       title: "الدرس غير موجود | موقع فضيلة الشيخ محمد بن رمزان الهاجري",
@@ -46,11 +45,8 @@ export default function LessonPage({ params }: { params: { id: string } }) {
   );
 }
 
-// Separate component for JSON-LD to avoid issues with suspense
 function LessonJsonLdWrapper({ id }: { id: string }) {
-  const lesson = getLessonById(id);
-  
-  // Using Promise to handle async data
+  const lesson = getLessonById(id);  
   lesson.then(data => {
     if (!data || !data.audio_url) return null;
     

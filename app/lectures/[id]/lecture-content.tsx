@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Clock } from "lucide-react";
+import Link from "next/link";
 import { formatDuration, formatDate, resourceUrl } from "@/lib/utils";
 import Image from "next/image";
 import { AudioTrack } from "@/types";
@@ -52,7 +53,7 @@ export default async function LectureContent({ id }: { id: string }) {
           <Card className="overflow-hidden border-0 shadow-md">
             <div className="relative h-48 md:h-64 bg-gray-900">
               <Image
-                src={lecture.thumbnail_url ? resourceUrl(lecture.thumbnail_url) : "/speech.jpg"}
+                src={lecture.thumbnail_url ? resourceUrl(lecture.thumbnail_url) : "/background.jpg"}
                 alt={lecture.title}
                 fill
                 className="object-cover opacity-70"
@@ -115,7 +116,11 @@ export default async function LectureContent({ id }: { id: string }) {
 
               {lecture.audio_url && (
                 <div className="mt-8">
-                  <Button variant="outline">تحميل الملف الصوتي</Button>
+                  <Button variant="outline">
+                    <Link href={resourceUrl(lecture.audio_url)} target="_blank">
+                      تحميل المحاضرة
+                    </Link>
+                  </Button>
                 </div>
               )}
             </CardContent>

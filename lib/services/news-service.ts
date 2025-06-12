@@ -1,4 +1,4 @@
-import { api } from '@/lib/api-client';
+import { api, RequestOptions } from '@/lib/api-client';
 
 
 export interface News {
@@ -6,7 +6,7 @@ export interface News {
   title: string;
   content: string;
   description?: string; // Brief summary for listings
-  published_at: string; 
+  published_at: string;
   slug: string;
   created_at: string;
   updated_at: string;
@@ -24,12 +24,16 @@ export interface NewsResponse {
   meta: NewsPaginationMeta;
 }
 
-export async function getNews(page = 1, perPage = 10, searchQuery?: string) {
-  let url = `/news?page=${page}&per_page=${perPage}`;
-  if (searchQuery) {
-    url += `&q=${encodeURIComponent(searchQuery)}`;
-  }
-  return api.get<NewsResponse>(url);
+export async function getNews(page = 1, perPage = 10, query?: string) {
+  console.log(`Fetching news: page=${page}, perPage=${perPage}, query=${query}`);
+  
+  const options: Omit<RequestOptions, 'method' | 'body'> = {
+    params: {
+      page,
+      title: query,
+    },
+  };
+  return api.get<NewsResponse>("/news", options);
 }
 
 export async function getNewsItem(slug: string) {

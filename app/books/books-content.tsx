@@ -17,11 +17,11 @@ interface BooksContentProps {
   sort?: string;
 }
 
-export default async function BooksContent({ 
-  query = '', 
+export default async function BooksContent({
+  query = '',
   page = '1',
-  category = '', 
-  sort = 'created_at' 
+  category = '',
+  sort = 'created_at'
 }: BooksContentProps) {
   const currentPage = Number(page) || 1;
   const { meta, books } = await getAllBooks(currentPage, query, category);
@@ -59,44 +59,47 @@ export default async function BooksContent({
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {books.map((book) => (
-                  <Card key={book.id} className="overflow-hidden border shadow-sm">
-                    <div className="aspect-[3/4] relative bg-gray-200">
-                      {book.cover_image_url ? (
-                        <Image
-                          src={resourceUrl(book.cover_image_url)}
-                          alt={book.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <FileText className="h-16 w-16 text-gray-400" />
-                        </div>
-                      )}
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="font-bold truncate">{book.title}</h3>
-                      <p className="text-sm text-gray-500 mb-1">{book.author.first_name}</p>
-                      <p className="text-xs text-gray-500 mb-3">{book.pages} صفحة</p>
-                      <div className="flex justify-between gap-2">
-                        <Button asChild size="sm" variant="outline" className="flex-1">
-                          <Link href={`/books/${book.id}`}>
-                            <Eye className="h-4 w-4 ml-1" />
-                            عرض
-                          </Link>
-                        </Button>
-                        {book.file_url && (
-                          <Button size="sm" variant="outline" className="flex-1">
-                            <Link href={resourceUrl(book.file_url)} download>
-                              <Download className="h-4 w-4 ml-1" />
-                              تحميل
-                            </Link>
-                          </Button>
+                  <Card key={book.id} className="overflow-hidden border shadow-sm hover:shadow-md transition-shadow">
+                    <Link href={`/books/${book.id}`} className="block no-underline">
+                      <div className="aspect-[3/4] relative bg-gray-200">
+                        {book.cover_image_url ? (
+                          <Image
+                            src={resourceUrl(book.cover_image_url)}
+                            alt={book.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <FileText className="h-16 w-16 text-gray-400" />
+                          </div>
                         )}
                       </div>
-                    </CardContent>
+
+                      <CardContent className="p-4">
+                        <h3 className="font-bold truncate mb-1">{book.title}</h3>
+                        <p className="text-sm text-gray-500 mb-3">
+                          {book.author.first_name} {book.author.last_name}
+                        </p>
+
+                        {book.file_url && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="w-full flex items-center justify-center"
+                            asChild
+                          >
+                            <a href={resourceUrl(book.file_url)} download>
+                              <Download className="h-4 w-4 ml-1" />
+                              تحميل
+                            </a>
+                          </Button>
+                        )}
+                      </CardContent>
+                    </Link>
                   </Card>
+
                 ))}
               </div>
             )}

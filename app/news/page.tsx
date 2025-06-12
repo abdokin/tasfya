@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 };
 
 interface NewsPageProps {
-  searchParams: { page?: string; q?: string }
+  searchParams: { page?: string; query?: string }
 }
 
 export default function NewsPage({ searchParams }: NewsPageProps) {
   return (
     <Suspense fallback={<NewsSkeleton />}>
-      <NewsContent page={searchParams.page} q={searchParams.q} />
+      <NewsContent page={searchParams.page} query={searchParams.query} />
     </Suspense>
   );
 }

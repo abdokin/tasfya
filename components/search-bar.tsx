@@ -121,33 +121,35 @@ export function SearchBar({
         </DropdownMenu>
 
         {/* Filter Categories Dropdown */}
-        <DropdownMenu dir="rtl">
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="relative"
-            >
-              <Filter className="h-4 w-4 ml-2" />
-              تصفية
-              {selectedCategories.length > 0 && (
-                <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>الفئات</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {categories.map((category) => (
-              <DropdownMenuCheckboxItem
-                key={category}
-                checked={selectedCategories.includes(category)}
-                onCheckedChange={() => handleCategoryToggle(category)}
+        {categories.length > 0 && (
+          <DropdownMenu dir="rtl">
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="relative"
               >
-                {category}
-              </DropdownMenuCheckboxItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+                <Filter className="h-4 w-4 ml-2" />
+                تصفية
+                {selectedCategories.length > 0 && (
+                  <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>الفئات</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {categories.map((category) => (
+                <DropdownMenuCheckboxItem
+                  key={category}
+                  checked={selectedCategories.includes(category)}
+                  onCheckedChange={() => handleCategoryToggle(category)}
+                >
+                  {category}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
 
         {/* Clear Filters */}
         {activeFilters && (

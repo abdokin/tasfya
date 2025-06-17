@@ -15,7 +15,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
-
 const BookCard = ({ book }: { book: TBook }) => {
   return (
     <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow" dir="rtl">
@@ -68,7 +67,6 @@ const BookCard = ({ book }: { book: TBook }) => {
   )
 }
 
-
 export function RecentBooks({ books }: { books: TBook[] }) {
   return (
     <section>
@@ -81,7 +79,7 @@ export function RecentBooks({ books }: { books: TBook[] }) {
         }}
         dir="ltr"
         orientation='horizontal'
-        className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-full mx-auto">
+        className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-4xl 2xl:max-w-full mx-auto">
         <CarouselContent dir="ltr">
           {books.map((book, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 2xl:basis-1/4">

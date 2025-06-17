@@ -59,9 +59,7 @@ export default async function LectureContent({ id }: { id: string }) {
                 className="object-cover opacity-70"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                {lecture.media_type === 'audio' && audioTrack ? (
-                  <AudioPlayerButton track={audioTrack} />
-                ) : lecture.media_type === 'video' && lecture.video_url ? (
+                {lecture.media_type === 'video' ? (lecture.video_url && lecture.audio_url?.endsWith(".com") ? (
                   <div className="w-full h-full aspect-video">
                     <iframe
                       className="w-full h-full rounded-md border-0"
@@ -73,7 +71,17 @@ export default async function LectureContent({ id }: { id: string }) {
                       allowFullScreen
                     />
                   </div>
-                ) : null}
+                ) : (
+                    <iframe
+                      className="w-full h-full rounded-md border-0"
+                      src={lecture.video_url}
+                      title={lecture.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                )) : lecture.media_type === 'audio' && audioTrack && (
+                  <AudioPlayerButton track={audioTrack} />
+                )}
               </div>
             </div>
 
@@ -92,15 +100,15 @@ export default async function LectureContent({ id }: { id: string }) {
               <h1 className="text-2xl md:text-3xl font-bold mb-4">{lecture.title}</h1>
 
               <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-gray-600">
-                {lecture.published_date && (
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 ml-1" />
+                {/* {lecture.published_date && (
+                  <div className="flex items-center gap-1">
                     <span>{formatDate(lecture.published_date)}</span>
+                    <Calendar className="h-4 w-4 ml-1" />
                   </div>
-                )}
+                )} */}
                 {lecture.duration && (
-                  <div className="flex items-center">
-                    <Clock className="h-4 w-4 ml-1" />
+                  <div className="flex items-center gap-1">
+                    <Clock className="size-4" />
                     <span>{formatDuration(lecture.duration)}</span>
                   </div>
                 )}

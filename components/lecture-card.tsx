@@ -1,16 +1,14 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-    Calendar,
-    Play,
-} from "lucide-react";
+import { Play } from "lucide-react";
 import Link from "next/link";
-import { formatDate, resourceUrl } from "@/lib/utils";
+import { resourceUrl } from "@/lib/utils";
 import { Lecture } from "@/lib/services/lectures-service";
 import { useAudioPlayer } from "@/context/AudioPlayerContext";
 import { AudioTrack } from "@/types"
 import sheikh from "@/lib/data/sheikh";
+import Image from "next/image";
 
 export const LectureCard = ({ lecture }: { lecture: Lecture }) => {
     const player = useAudioPlayer();
@@ -26,34 +24,34 @@ export const LectureCard = ({ lecture }: { lecture: Lecture }) => {
     return (
         <Card className="border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
             <CardContent className="p-0">
+                <Image
+                    src={lecture.thumbnail_url ? resourceUrl(lecture.thumbnail_url) : "/audio-thumbnail.jpg"}
+                    alt={lecture.title}
+                    width={500}
+                    height={200}
+                    className={`w-full h-48 rounded-lg`}
+                />
                 <div className="p-5">
-                    <div className="flex justify-between items-start mb-3">
+                    {/* <div className="flex justify-between items-start mb-3">
                         <div className="flex items-center text-xs text-gray-500 gap-1">
                             <Calendar className="size-3" />
                             <span>{formatDate(lecture.published_date)}</span>
                         </div>
-                    </div>
+                    </div> */}
                     <Link href={`/lectures/${lecture.id}`} className="block">
                         <h3 className="text-xl font-semibold mb-2 hover:underline transition-colors">
                             {lecture.title}
                         </h3>
                     </Link>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {/* <p className="text-sm text-gray-600 mb-4 line-clamp-2">
                         {lecture.description}
-                    </p>
+                    </p> */}
                     <div className="flex items-center gap-4">
                         {lecture.media_type === 'audio' && track && (
                             <Button variant="outline" size="sm" onClick={() => player.setTrack(track)}>
                                 <Play className="size-4" />
                                 <span>استماع</span>
                             </Button>
-                        )}
-
-                        {lecture.video_url && (
-                            <Link href={`/lectures/${lecture.id}/video`} className="flex items-center gap-2 text-blue-600 hover:underline">
-                                <Play className="size-4" />
-                                <span>مشاهدة الفيديو</span>
-                            </Link>
                         )}
                     </div>
                 </div>

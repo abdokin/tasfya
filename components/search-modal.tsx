@@ -2,18 +2,15 @@
 
 import { useState, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Search, Book, FileText, Mic, Video, Gift } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { Badge } from "./ui/badge"
 import { getAllLessons } from "@/lib/services/lessons-service"
-import { format } from "path"
 import { formatDate } from "@/lib/utils"
 import { getAllBooks } from "@/lib/services/books-service"
 import { getAllFatwas } from "@/lib/services/fatwas-service"
-import { set } from "date-fns"
 type SearchType = 'lessons' | 'books' | 'fatwas' | 'sermons' | 'lectures' | 'benefits'
 type SearchResult = {
   id: string

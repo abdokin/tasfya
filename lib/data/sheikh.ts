@@ -4,6 +4,7 @@ export interface SheikhInfo {
     location: string;
     image: string;
     twitter: string;
+    birthYear: string; 
 }
 
 const sheikh: SheikhInfo = {
@@ -16,7 +17,8 @@ const sheikh: SheikhInfo = {
 يقدم دروسًا أسبوعية في عدة مساجد بالجبيل والدمام، ويشارك في دورات علمية داخل المملكة وخارجها، منها المغرب، تركيا، أوروبا، الهند، بنغلاديش، سريلانكا، سلطنة عمان، والإمارات.
 نال تزكيات من عدد من العلماء، منهم الشيخ أحمد بن يحيى النجمي، الذي وصفه بأنه "من رؤوس أهل السنة"، والشيخ عبيد الجابري، الذي أحال عليه السائلين من الجبيل.`,
     location: "الجبيل، المنطقة الشرقية، المملكة العربية السعودية",
-    image: "/logo.png"
+    image: "/logo.png",
+    birthYear: "1384",
 };
 
 export default sheikh;

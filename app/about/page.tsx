@@ -5,6 +5,7 @@ import Image from "next/image"
 import SocialLinks from "@/components/social-links"
 import sheikh from "@/lib/data/sheikh"
 import { Metadata } from "next"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "عن الشيخ | موقع فضيلة الشيخ محمد بن رمزان الهاجري",
@@ -51,11 +52,18 @@ export default function AboutPage() {
             <CardContent className="p-6 text-center">
               <h2 className="text-2xl font-bold mb-4">{sheikh.name}</h2>
               <p className="text-gray-600 text-sm mb-4">{sheikh.bio.split('\n')[0]}</p>
+          
               <hr className="my-4" />
               <div className="space-y-3 text-sm text-right">
                 <div className="flex items-center justify-between gap-2">
                   <span>{sheikh.location}</span>
                   <MapPin className="size-4 text-gray-500" />
+                </div>
+              </div>
+              <div className="space-y-3 text-sm text-right mt-2">
+                <div className="flex items-center justify-between gap-2">
+                  <span>{sheikh.birthYear} هـ</span>
+                  <Calendar className="size-4 text-gray-500" />
                 </div>
               </div>
               <hr className="my-4" />

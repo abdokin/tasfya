@@ -61,7 +61,7 @@ async function LectureJsonLdWrapper({ id }: { id: string }) {
       <AudioJsonLd
         name={lectureData.title}
         description={lectureData.description || `محاضرة ${lectureData.title} من محاضرات فضيلة الشيخ محمد بن رمزان الهاجري`}
-        contentUrl={resourceUrl(lectureData.audio_url)}
+        contentUrl={resourceUrl(lectureData.audio_url!)}
         uploadDate={lectureData.published_date || new Date().toISOString()}
         duration={formattedDuration}
         thumbnailUrl={lectureData.thumbnail_url ? resourceUrl(lectureData.thumbnail_url) : undefined}

@@ -65,7 +65,7 @@ export default async function LecturesContent({
 
             {totalPages > 1 && (
               <div className="mt-8 flex justify-center">
-                <Pagination totalPages={totalPages} resourceType="lectures" />
+                <Pagination totalPages={totalPages} />
               </div>
             )}
           </div>

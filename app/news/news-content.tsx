@@ -74,7 +74,7 @@ export default async function NewsContent({
       )}
 
       {totalPages > 1 && (
-        <Pagination totalPages={totalPages} resourceType="news" />
+        <Pagination totalPages={totalPages} />
       )}
     </div>
   );

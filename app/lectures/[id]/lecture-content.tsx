@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Clock } from "lucide-react";
 import Link from "next/link";
-import { formatDuration, formatDate, resourceUrl } from "@/lib/utils";
+import { formatDuration, formatDate, resourceUrl, formatYoutubeUrl } from "@/lib/utils";
 import Image from "next/image";
 import { AudioTrack } from "@/types";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -63,9 +63,7 @@ export default async function LectureContent({ id }: { id: string }) {
                   <div className="w-full h-full aspect-video">
                     <iframe
                       className="w-full h-full rounded-md border-0"
-                      src={lecture.video_url.includes('youtube.com/watch?v=')
-                        ? lecture.video_url.replace('youtube.com/watch?v=', 'youtube.com/embed/')
-                        : lecture.video_url.replace("watch?v=", "embed/")}
+                      src={formatYoutubeUrl(lecture.video_url)}
                       title={lecture.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen

@@ -17,6 +17,27 @@ export function formatTime(seconds: number): string {
   return `${formattedMinutes}:${formattedSeconds}`
 }
 
+export function formatYoutubeUrl(url: string): string {
+  if (!url) return ""
+  // convert normal url to embed url
+  if (url.includes("youtube.com/watch?v=")) {
+    return url.replace("youtube.com/watch?v=", "youtube.com/embed/")
+  }
+  if (url.includes("youtu.be/")) {
+    return url.replace("youtu.be/", "youtube.com/embed/")
+  }
+  if (url.includes("youtube.com/shorts/")) {
+    return url.replace("youtube.com/shorts/", "youtube.com/embed/")
+  }
+  if (url.includes("youtube.com/live/")) {
+    return url.replace("youtube.com/live/", "youtube.com/embed/")
+  }
+  if (url.includes("youtube.com/embed/")) {
+    return url
+  }
+  return url;
+}
+
 export function resourceUrl(path: string): string {
   if (true || process.env.NODE_ENV === "production") {
     return path;
@@ -28,8 +49,9 @@ export function resourceUrl(path: string): string {
 export function formatDuration(minutes: number): string {
   if (isNaN(minutes) || minutes < 0) return "0 دقيقة"
 
-  const hours = Math.floor(minutes / 60)
-  const remainingMinutes = minutes % 60
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const remainingSeconds = seconds % 60
 
   if (hours > 0) {
     return `${hours} ساعة ${remainingMinutes > 0 ? `و ${remainingMinutes} دقيقة` : ""}`

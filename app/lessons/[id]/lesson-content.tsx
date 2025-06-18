@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Play, Calendar, Clock, ExternalLink } from "lucide-react";
-import { formatDuration, formatDate, resourceUrl } from "@/lib/utils";
+import { formatDuration, formatDate, resourceUrl, formatYoutubeUrl } from "@/lib/utils";
 import Image from "next/image";
 import { AudioTrack } from "@/types";
 import { getLessonById } from "@/lib/services/lessons-service";
@@ -68,9 +68,7 @@ export default async function LessonContent({ id }: { id: string }) {
                   <div className="w-full h-full aspect-video">
                     <iframe
                       className="w-full h-full rounded-md border-0"
-                      src={lesson.video_url.includes('youtube.com/watch?v=') 
-                        ? lesson.video_url.replace('youtube.com/watch?v=', 'youtube.com/embed/')
-                        : lesson.video_url.replace("watch?v=", "embed/")}
+                      src={formatYoutubeUrl(lesson.video_url)}
                       title={lesson.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen

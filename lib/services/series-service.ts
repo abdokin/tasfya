@@ -54,8 +54,6 @@ export async function getAllSeries(page: number = 1, query: string = '', categor
 export async function getSeriesById(id: string): Promise<Series | null> {
   try {
     const response = await api.get<Series>(`series/${id}`);
-    console.log("resposne", response);
-    
     return response;
   } catch (error) {
     console.error('Error fetching series:', error);

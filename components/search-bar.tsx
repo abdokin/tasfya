@@ -135,7 +135,7 @@ export function SearchBar({
                 )}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent className="w-56 h-64 overflow-y-auto">
               <DropdownMenuLabel>الفئات</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {categories.map((category) => (

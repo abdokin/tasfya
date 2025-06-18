@@ -25,7 +25,6 @@ export interface NewsResponse {
 }
 
 export async function getNews(page = 1, perPage = 10, query?: string) {
-  console.log(`Fetching news: page=${page}, perPage=${perPage}, query=${query}`);
   
   const options: Omit<RequestOptions, 'method' | 'body'> = {
     params: {

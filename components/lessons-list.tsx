@@ -126,8 +126,9 @@ export function LessonsList({ lessons, order }: { lessons: Lesson[], order: bool
     )
   }
   const orderedLessons = order ? [...lessons].sort((a, b) => {
-    const positionA = parseInt(a.title.match(/(\d+)-/)?.[1] || '0');
-    const positionB = parseInt(b.title.match(/(\d+)-/)?.[1] || '0');
+    const positionA = parseInt(a.title.match(/(\d+)/)?.[1] || '0');
+    const positionB = parseInt(b.title.match(/(\d+)/)?.[1] || '0');
+    console.log(`Comparing  (position ${positionA}) with (position ${positionB})`);
     return positionA - positionB;
   }) : lessons;
   return (

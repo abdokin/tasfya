@@ -9,7 +9,6 @@ import { formatDate } from "@/lib/utils";
 import { BookOpen } from "lucide-react";
 import { LessonsList } from "@/components/lessons-list";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 
 export default async function SeriesDetailPage({ id }: { id: string }) {
     const series = await getSeriesById(id);

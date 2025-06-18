@@ -21,7 +21,6 @@ export default async function NewsContent({
   category = '',
   sort = 'created_at'
 }: ContentProps) {
-  console.log(`Fetching news: query=${query}, page=${page}, category=${category}, sort=${sort}`);
   const currentPage = Number(page) || 1;
   const searchQuery = query;
   const response = await getNews(currentPage, 9, searchQuery);

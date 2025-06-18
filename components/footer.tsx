@@ -40,7 +40,7 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/terms" className="hover:text-white">
+                    <Link href="/contact" className="hover:text-white">
                       تواصل معنا
                     </Link>
                   </li>

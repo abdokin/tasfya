@@ -106,7 +106,7 @@ export default async function BooksContent({
 
             {totalPages > 1 && (
               <div className="mt-8 flex justify-center">
-                <Pagination totalPages={totalPages} resourceType="books" />
+                <Pagination totalPages={totalPages} />
               </div>
             )}
           </div>

@@ -39,6 +39,10 @@ export function formatYoutubeUrl(url: string): string {
 }
 
 export function resourceUrl(path: string): string {
+  // check if the path contain NEXT_PUBLIC_API_URL
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
   if (process.env.NODE_ENV === "production") {
     return path;
   }

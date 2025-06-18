@@ -113,7 +113,11 @@ export default async function LessonContent({ id }: { id: string }) {
 
               <div className="mt-8 flex flex-wrap gap-4">
                 {lesson.media_type === 'audio' && lesson.audio_url && (
-                  <Button variant="outline">تحميل الملف الصوتي</Button>
+                  <Button variant="outline">
+                    <Link href={resourceUrl(lesson.audio_url)} target="_blank" className="flex items-center">
+                      تحميل الملف الصوتي
+                    </Link>
+                  </Button>
                 )}
                 {lesson.media_type === 'video' && lesson.video_url && (
                   <Button

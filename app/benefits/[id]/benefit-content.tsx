@@ -75,11 +75,11 @@ export default async function BenefitPage({ id }: { id: string }) {
 
               <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-gray-600">
                 <div className="flex items-center">
-                  <Calendar className="h-4 w-4 ml-1" />
+                  <Calendar className="size-4" />
                   <span>{formatDate(benefit.published_date)}</span>
                 </div>
                 <div className="flex items-center">
-                  <Clock className="h-4 w-4 ml-1" />
+                  <Clock className="size-4" />
                   <span>{formatDuration(benefit.duration || 0)}</span>
                 </div>
               </div>

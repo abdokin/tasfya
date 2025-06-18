@@ -101,7 +101,7 @@ export default async function LectureContent({ id }: { id: string }) {
                 {/* {lecture.published_date && (
                   <div className="flex items-center gap-1">
                     <span>{formatDate(lecture.published_date)}</span>
-                    <Calendar className="h-4 w-4 ml-1" />
+                    <Calendar className="size-4" />
                   </div>
                 )} */}
                 {lecture.duration && (

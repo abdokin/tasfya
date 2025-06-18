@@ -1,7 +1,7 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Search, Book, FileText, Download, Bookmark, Star, Filter, ArrowUpDown, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import {  Book, FileText, Download, Bookmark, Star, Filter, ArrowUpDown, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import PageSidebar from "@/components/page-sidebar";
@@ -90,10 +90,10 @@ export default async function BooksContent({
                             className="w-full flex items-center justify-center"
                             asChild
                           >
-                            <a href={resourceUrl(book.file_url)} download>
-                              <Download className="h-4 w-4 ml-1" />
+                            <Link href={resourceUrl(book.file_url)} download>
+                              <Download className="size-4" />
                               تحميل
-                            </a>
+                            </Link>
                           </Button>
                         )}
                       </CardContent>

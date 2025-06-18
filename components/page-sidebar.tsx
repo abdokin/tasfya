@@ -33,7 +33,7 @@ export default async function PageSidebar() {
               <Button asChild>
                 <Link href="/about">
                   <span className="flex items-center justify-center gap-1">
-                    <ExternalLink className="h-3.5 w-3.5 ml-1" />
+                    <ExternalLink className="size-3.5" />
                     عن الشيخ
                   </span>
                 </Link>
@@ -41,7 +41,7 @@ export default async function PageSidebar() {
               <Button variant="outline" asChild>
                 <Link href="/contact">
                   <span className="flex items-center justify-center gap-1">
-                    <Mail className="h-3.5 w-3.5 ml-1" />
+                    <Mail className="size-3.5" />
                     تواصل
                   </span>
                 </Link>
@@ -104,10 +104,10 @@ export default async function PageSidebar() {
                   <h4 className="font-medium text-sm mb-1 line-clamp-2">
                     {book.title}
                   </h4>
-                  <div className="flex items-center text-xs text-gray-500 gap-1">
-                    <BookOpen className="h-3 w-3 ml-1" />
+                  {/* <div className="flex items-center text-xs text-gray-500 gap-1">
+                    <BookOpen className="size-3" />
                     <span>{book.views} مشاهدة</span>
-                  </div>
+                  </div> */}
                 </div>
               </Link>
             ))}

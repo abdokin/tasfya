@@ -255,13 +255,13 @@ export default function ProfilePage() {
                       <div className="space-y-2">
                         <Button variant="outline" className="w-full justify-start" asChild>
                           <a href="/bookmarks">
-                            <BookOpen className="ml-2 size-4" />
+                            <BookOpen className="size-4" />
                             المحتوى المحفوظ
                           </a>
                         </Button>
                         <Button variant="outline" className="w-full justify-start" asChild>
                           <a href="/comments">
-                            <UserIcon className="ml-2 size-4" />
+                            <UserIcon className="size-4" />
                             تعليقاتي
                           </a>
                         </Button>

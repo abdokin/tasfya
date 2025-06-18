@@ -69,7 +69,7 @@ export default async function SeriesDetailPage({ id }: { id: string }) {
                             <CardContent className="p-4">
                                 <div className="relative overflow-hidden rounded-lg">
                                     {series.lessons && series.lessons.length > 0 ? (
-                                        <LessonsList lessons={series.lessons} />
+                                        <LessonsList lessons={series.lessons} order={true} />
                                     ) : (
                                         <div className="text-center py-8">
                                             <p className="text-gray-500">لا توجد دروس متاحة في هذه السلسلة.</p>

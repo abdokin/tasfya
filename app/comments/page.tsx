@@ -63,11 +63,11 @@ export default function CommentsPage() {
                     </div>
                     <div className="flex gap-2">
                       <Button variant="outline" className="text-emerald-600 border-emerald-200 hover:bg-emerald-50">
-                        <Filter className="h-4 w-4 ml-2" />
+                        <Filter className="size-4" />
                         تصفية
                       </Button>
                       <Button variant="outline" className="text-emerald-600 border-emerald-200 hover:bg-emerald-50">
-                        <ArrowUpDown className="h-4 w-4 ml-2" />
+                        <ArrowUpDown className="size-4" />
                         ترتيب
                       </Button>
                       <Button className="bg-emerald-600 hover:bg-emerald-700">بحث</Button>

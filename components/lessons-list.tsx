@@ -70,19 +70,19 @@ function LessonCard({ lesson }: { lesson: Lesson }) {
             >
               {lesson.media_type === 'video' ? (
                 <>
-                  <ExternalLink className="h-4 w-4 ml-1" />
+                  <ExternalLink className="size-4" />
                   <span>مشاهدة</span>
                 </>
               ) : (
                 <>
-                  <Play className="h-4 w-4 ml-1" />
+                  <Play className="size-4" />
                   <span>استماع</span>
                 </>
               )}
             </Button>
             <Link href={`/lessons/${lesson.id}`}>
               <Button size="sm">
-                <Eye className="h-4 w-4 ml-1" />
+                <Eye className="size-4" />
                 قراءة
               </Button>
             </Link>
@@ -117,7 +117,19 @@ export function RecentLessons({ lessons }: { lessons: Lesson[] }) {
   )
 }
 
-export function LessonsList({ lessons }: { lessons: Lesson[] }) {
+export function LessonsList({ lessons, order }: { lessons: Lesson[], order: boolean }) {
+  if (lessons.length === 0) {
+    return (
+      <div className="text-center text-gray-500">
+        لا توجد دروس جديدة حالياً
+      </div>
+    )
+  }
+  const orderedLessons = order ? [...lessons].sort((a, b) => {
+    const positionA = parseInt(a.title.match(/(\d+)-/)?.[1] || '0');
+    const positionB = parseInt(b.title.match(/(\d+)-/)?.[1] || '0');
+    return positionA - positionB;
+  }) : lessons;
   return (
     <section>
       <div className="flex justify-between items-center mb-6">
@@ -125,7 +137,7 @@ export function LessonsList({ lessons }: { lessons: Lesson[] }) {
       </div>
 
       <div className="space-y-4">
-        {lessons.map((lesson) => (
+        {orderedLessons.map((lesson) => (
           <LessonCard key={lesson.id} lesson={lesson} />
         ))}
       </div>

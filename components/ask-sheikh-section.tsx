@@ -57,7 +57,7 @@ export default function AskSheikhSection() {
               </div>
               <div className="flex space-x-2 justify-end">
                 <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700 ml-2">
-                  <Send className="h-4 w-4 ml-2" /> إرسال السؤال
+                  <Send className="size-4" /> إرسال السؤال
                 </Button>
               </div>
             </form>

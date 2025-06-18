@@ -50,7 +50,7 @@ export default async function FatwaPage({ params }: { params: Promise<{ id: stri
 
               <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-gray-600">
                 <div className="flex items-center">
-                  <Calendar className="h-4 w-4 ml-1" />
+                  <Calendar className="size-4" />
                   <span>{formatDate(fatwa.published_date)}</span>
                 </div>
               </div>

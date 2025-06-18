@@ -25,7 +25,7 @@ export default function FeaturedSheikh() {
           </p>
           <Link href="/about">
             <Button>
-              <ExternalLink className="h-4 w-4 ml-2" />
+              <ExternalLink className="size-4" />
               <span>السيرة الذاتية للشيخ</span>
             </Button>
           </Link>

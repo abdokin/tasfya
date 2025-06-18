@@ -102,7 +102,7 @@ export function SearchBar({
             <Button
               variant="outline"
             >
-              <ArrowUpDown className="h-4 w-4 ml-2" />
+              <ArrowUpDown className="size-4" />
               ترتيب
               {selectedSort && (
                 <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />

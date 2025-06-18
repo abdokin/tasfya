@@ -41,10 +41,12 @@ export function formatYoutubeUrl(url: string): string {
 export function resourceUrl(path: string): string {
   if (!path) return ""
   // check if the path contain NEXT_PUBLIC_API_URL
-  if (path.startsWith("http://") || path.startsWith("https://")) {
-    return path;
-  }
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production" && ) {
+    if (path.startsWith("http://") || path.startsWith("https://")) {
+      return path;
+    } else if (path.startsWith("/")) {
+      return `${process.env.NEXT_PUBLIC_API_URL}${path}`;
+    }
     return path;
   }
   const base_url = process.env.NEXT_PUBLIC_API_URL ? (process.env.NEXT_PUBLIC_API_URL ) : "http://localhost:3000/"

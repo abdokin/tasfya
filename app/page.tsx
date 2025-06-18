@@ -74,7 +74,7 @@ export default async function Home() {
                 </div>
               )}
             </div>
-
+{/* 
             <div className="mb-12">
               {fatwas.length > 0 && <RecentFatwas fatwas={fatwas} />}
               {fatwas.length === 0 && (
@@ -82,7 +82,7 @@ export default async function Home() {
                   لا توجد فتاوى جديدة حالياً
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
           <div className="lg:col-span-1">
             <PageSidebar />

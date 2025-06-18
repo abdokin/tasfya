@@ -39,25 +39,29 @@ export function formatYoutubeUrl(url: string): string {
 }
 
 export function resourceUrl(path: string): string {
-  if (true || process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production") {
     return path;
   }
   const base_url = process.env.NEXT_PUBLIC_API_URL ? (process.env.NEXT_PUBLIC_API_URL ) : "http://localhost:3000/"
   return `${base_url}${path}`
 }
 
-export function formatDuration(minutes: number): string {
-  if (isNaN(minutes) || minutes < 0) return "0 دقيقة"
+export function formatDuration(seconds: number): string {
+  if (isNaN(seconds) || seconds < 0) return "0 ثانية"
 
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds % 3600) / 60)
   const remainingSeconds = seconds % 60
 
   if (hours > 0) {
-    return `${hours} ساعة ${remainingMinutes > 0 ? `و ${remainingMinutes} دقيقة` : ""}`
+    return `${hours} ساعة ${minutes > 0 ? `و ${minutes} دقيقة` : ""}`
   }
 
-  return `${remainingMinutes} دقيقة`
+  if (minutes > 0) {
+    return `${minutes} دقيقة ${remainingSeconds > 0 ? `و ${remainingSeconds} ثانية` : ""}`
+  }
+
+  return `${remainingSeconds} ثانية`
 }
 
 export function formatDate(date: Date | string | number | null | undefined): string {

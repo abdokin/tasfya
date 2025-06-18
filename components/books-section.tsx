@@ -34,15 +34,15 @@ const BookCard = ({ book }: { book: TBook }) => {
               <div className="flex items-center justify-center w-8 h-8 rounded-full border text-primary">
                 <Book className="h-4 w-4" />
               </div>
-              <span className="text-xs text-gray-500">{book.year} هـ</span>
+              {/* <span className="text-xs text-gray-500">{book.year} هـ</span> */}
               <Badge>{book.category}</Badge>
             </div>
             <h3 className="text-lg font-semibold mb-3 line-clamp-1">{book.title}</h3>
             <div className="text-sm text-gray-600 space-y-1 mb-4">
-              <p className="flex justify-between">
+              {/* <p className="flex justify-between">
                 <span>عدد الصفحات:</span>
                 <span className="font-medium">{book.pages}</span>
-              </p>
+              </p> */}
               {book.volumes && (
                 <p className="flex justify-between">
                   <span>عدد المجلدات:</span>

@@ -59,7 +59,7 @@ export default function Header() {
             <SocialLinks />
           </div>
 
-          <UserMenu user={user} onSignOut={logout} />
+          {/* <UserMenu user={user} onSignOut={logout} /> */}
 
           {/* <Button
             variant="ghost"

@@ -46,8 +46,8 @@ export const LectureCard = ({ lecture }: { lecture: Lecture }) => {
                     {/* <p className="text-sm text-gray-600 mb-4 line-clamp-2">
                         {lecture.description}
                     </p> */}
-                    <div className="flex items-center gap-4">
-                        {lecture.media_type === 'audio' && track && (
+                    <div className="flex items-center gap-4 mt-auto">
+                        {track && (
                             <Button variant="outline" size="sm" onClick={() => player.setTrack(track)}>
                                 <Play className="size-4" />
                                 <span>استماع</span>

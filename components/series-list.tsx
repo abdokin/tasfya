@@ -30,12 +30,12 @@ function SeriesCard({ series }: { series: Series }) {
               <p className="text-gray-600 line-clamp-2">{series.description}</p>
             </div>
             <div className="flex items-center md:items-end space-x-2 rtl:space-x-reverse">
-              <Link href={`/series/${series.id}`} passHref>
-                <Button variant="outline" className="h-9 gap-1">
+              <Button variant="outline" className="h-9 gap-1" asChild>
+                <Link href={`/series/${series.id}`}>
                   <span>عرض السلسلة</span>
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Link>
